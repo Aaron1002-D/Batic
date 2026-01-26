@@ -1,0 +1,156 @@
+@layout.main({ title : "BATIC Sarl - Notre Équipe"})
+  @slot('main')
+    <main class="bg-[#191256] min-h-screen text-white pb-32 overflow-hidden">
+
+      <!-- 1. NAVIGATION -->
+      <section class="px-6 md:px-20 pt-8">
+        @!component('components/nav')
+      </section>
+
+      <!-- 2. HERO : LE CONCEPT -->
+      <header class="relative px-6 md:px-20 py-20 flex flex-col md:flex-row items-end gap-8">
+        <div class="z-10">
+          <h1 class="text-6xl md:text-9xl font-black uppercase italic tracking-tighter leading-none">
+            L'esprit <br />            <span class="text-[#F7941D]">BATIC</span>
+          </h1>
+          <p class="mt-8 text-xl md:text-2xl font-light max-w-lg border-l-4 border-[#F7941D] pl-6 italic">
+            "Derrière chaque structure bétonnée, il y a une vision humaine, un trait de crayon et une expertise technique sans faille."
+          </p>
+        </div>
+        <!-- Filigrane de fond (Architecture Grid) -->
+        <div class="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="0.5" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+        </div>
+      </header>
+
+      <!-- 3. LA TEAM : GRID DÉSTRUCTURÉ -->
+      <section class="px-6 md:px-20 mt-12">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-y-20 md:gap-y-32">
+
+          <!-- MEMBRE 1 (CEO) - Grand format décalé -->
+          <div class="md:col-span-7 relative group">
+            <div class="absolute -top-4 -left-4 text-[#F7941D] font-mono text-xs">
+              01 / DIRECTION GÉNÉRALE
+            </div>
+            <div class="relative overflow-hidden aspect-[16/9] md:aspect-[4/3] rounded-sm bg-gray-800">
+              <img
+                src="/resources/images/4065.webp"
+                class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-110 group-hover:scale-100"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-[#191256] via-transparent to-transparent opacity-80"
+              >
+              </div>
+              <!-- Label flottant -->
+              <div class="absolute bottom-10 left-10">
+                <h3 class="text-4xl md:text-6xl font-black uppercase italic leading-none">
+                  Christian <br />                  <span class="text-[#F7941D]">Maliamukono</span>
+                </h3>
+                <p class="text-sm tracking-[0.3em] font-bold mt-2 uppercase">
+                  Fondateur & CEO
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- MEMBRE 2 (Architecte) - Plus petit, sur le côté -->
+          <div class="md:col-span-4 md:col-start-9 md:mt-32 relative group">
+            <div class="absolute -top-4 -left-4 text-[#F7941D] font-mono text-xs">
+              02 / DESIGN & VISION
+            </div>
+            <div class="relative overflow-hidden aspect-[3/4] rounded-sm bg-gray-800 border-r-8 border-[#F7941D]">
+              <img
+                src="/resources/images/4065.webp"
+                class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+              />
+              <div
+                class="absolute inset-0 bg-[#F7941D]/20 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity"
+              >
+              </div>
+              <div class="absolute bottom-6 left-6">
+                <h3 class="text-2xl font-black uppercase italic leading-none">
+                  Piskas <br />Kasero
+                </h3>
+                <p class="text-xs tracking-widest font-bold mt-1 uppercase">
+                  Architecte Principal
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- MEMBRE 3 (Ingénieur) - Aligné différemment -->
+          <div class="md:col-span-4 md:col-start-2 relative group">
+            <div class="absolute -top-4 -left-4 text-[#F7941D] font-mono text-xs">
+              03 / TECHNIQUE & BTP
+            </div>
+            <div class="relative overflow-hidden aspect-[1/1] rounded-sm bg-gray-800">
+              <img
+                src="/resources/images/4065.webp"
+                class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+              />
+              <!-- Overlay "Plan" au survol -->
+              <div
+                class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-8 bg-[#191256]/80"
+              >
+                <p class="text-center text-xs italic">
+                  Expert en structures complexes et génie civil avec 15 ans d'expérience.
+                </p>
+              </div>
+              <div class="absolute bottom-6 left-6">
+                <h3 class="text-2xl font-black uppercase italic leading-none text-[#F7941D]">
+                  Marc <br />                  <span class="text-white">Lukusa</span>
+                </h3>
+                <p class="text-xs tracking-widest font-bold mt-1 uppercase">
+                  Ingénieur Chef
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 4. SECTION VALEURS (Bas de page dynamique) -->
+      <section class="mt-40 bg-[#F7941D] py-16 px-6 md:px-20">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-12">
+          <div class="text-[#191256]">
+            <h2 class="text-5xl font-black uppercase italic leading-none">
+              Notre ADN
+            </h2>
+            <p class="font-bold uppercase tracking-widest mt-2">
+              Force - Précision - Esthétique
+            </p>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-8 text-[#191256]">
+            <div class="border-l-2 border-[#191256] pl-4">
+              <span class="text-4xl font-black">100%</span>
+              <p class="text-xs font-bold uppercase">
+                Fiabilité
+              </p>
+            </div>
+            <div class="border-l-2 border-[#191256] pl-4">
+              <span class="text-4xl font-black">15+</span>
+              <p class="text-xs font-bold uppercase">
+                Experts
+              </p>
+            </div>
+            <div class="border-l-2 border-[#191256] pl-4">
+              <span class="text-4xl font-black">24/7</span>
+              <p class="text-xs font-bold uppercase">
+                Engagement
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  @endslot
+@end

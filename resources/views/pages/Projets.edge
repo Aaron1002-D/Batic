@@ -1,0 +1,145 @@
+@layout.main({ title : "BATIC Sarl - Nos Projets"})
+  @slot('main')
+    <main class="bg-[#191256] min-h-screen text-white pb-20">
+
+      <!-- 1. NAVIGATION -->
+      <section class="px-6 md:px-20 pt-8">
+        @!component('components/nav')
+      </section>
+
+      <!-- 2. TITRE DE LA PAGE -->
+      <header class="px-6 md:px-20 py-12 md:py-20">
+        <h1 class="text-4xl md:text-7xl font-black uppercase italic tracking-tighter">
+          Nos <span class="text-[#F7941D]">Projets</span>
+        </h1>
+        <div class="h-1.5 w-32 bg-[#F7941D] mt-4">
+        </div>
+      </header>
+
+      <!-- 3. MENU DES CATÉGORIES (Les déclencheurs JS) -->
+      <nav class="px-6 md:px-20 mb-12">
+        <ul class="flex flex-wrap gap-4 md:gap-10 border-b border-white/10 pb-4">
+          <li>
+            <button
+              data-target="publics"
+              class="project-btn text-[#F7941D] border-b-2 border-[#F7941D] pb-4 font-bold uppercase tracking-widest transition-all"
+            >
+              Publics
+            </button>
+          </li>
+          <li>
+            <button
+              data-target="prives"
+              class="project-btn text-gray-400 hover:text-white pb-4 font-bold uppercase tracking-widest transition-all"
+            >
+              Privés
+            </button>
+          </li>
+          <li>
+            <button
+              data-target="hospitalite"
+              class="project-btn text-gray-400 hover:text-white pb-4 font-bold uppercase tracking-widest transition-all"
+            >
+              Hospitalité
+            </button>
+          </li>
+          <li>
+            <button
+              data-target="academique"
+              class="project-btn text-gray-400 hover:text-white pb-4 font-bold uppercase tracking-widest transition-all"
+            >
+              Académique
+            </button>
+          </li>
+          <li>
+            <button
+              data-target="videos"
+              class="project-btn text-gray-400 hover:text-white pb-4 font-bold uppercase tracking-widest transition-all"
+            >
+              Vidéos
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- 4. CONTENEUR DES SECTIONS DE PROJETS -->
+      <section class="px-6 md:px-20">
+
+        <!-- SECTION : PUBLICS (Visible par défaut) -->
+        <div id="project-publics" class="project-content block">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+            <!-- Texte descriptif -->
+            <div class="flex flex-col justify-center gap-6">
+              <h2 class="text-3xl md:text-6xl font-black uppercase italic leading-none">
+                Infrastructures <br />                <span class="text-[#F7941D]">Étatiques</span>
+              </h2>
+              <div class="bg-white/5 p-6 md:p-10 rounded-2xl border-l-8 border-[#F7941D]">
+                <p class="text-gray-300 text-lg leading-relaxed italic">
+                  "Conception de bâtiments publics alliant prestige et durabilité. Nos projets étatiques répondent aux normes internationales de sécurité et d'ergonomie pour le service des citoyens."
+                </p>
+                <ul class="mt-8 space-y-2 text-sm font-bold uppercase tracking-tighter text-gray-400">
+                  <li>
+                    <span class="text-[#F7941D]">●</span>Localisation : Kinshasa - RDC
+                  </li>
+                  <li>
+                    <span class="text-[#F7941D]">●</span>Statut : Terminés / En cours
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- Galerie Photos -->
+            <div class="space-y-4">
+              <div class="h-[300px] md:h-[500px] overflow-hidden rounded-2xl border-2 border-white/5">
+                <img src="/resources/images/4065.webp" class="w-full h-full object-cover" alt="Image principale" />
+              </div>
+              <div class="grid grid-cols-3 gap-4">
+                <img
+                  src="/resources/images/4065.webp"
+                  class="rounded-xl h-24 w-full object-cover opacity-60 hover:opacity-100 cursor-pointer transition-all"
+                />
+                <img
+                  src="/resources/images/4065.webp"
+                  class="rounded-xl h-24 w-full object-cover opacity-60 hover:opacity-100 cursor-pointer transition-all"
+                />
+                <img
+                  src="/resources/images/4065.webp"
+                  class="rounded-xl h-24 w-full object-cover opacity-60 hover:opacity-100 cursor-pointer transition-all"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION : PRIVÉS (Cachée par défaut) -->
+        <div id="project-prives" class="project-content hidden">
+          <div class="py-20 text-center border-2 border-dashed border-white/10 rounded-2xl">
+            <h2 class="text-2xl font-bold opacity-50 uppercase">
+              Projets Privés en cours de sélection...
+            </h2>
+          </div>
+        </div>
+
+        <!-- SECTION : HOSPITALITÉ (Cachée par défaut) -->
+        <div id="project-hospitalite" class="project-content hidden">
+          <!-- Même structure que Publics ici -->
+        </div>
+
+        <!-- SECTION : ACADÉMIQUE (Cachée par défaut) -->
+        <div id="project-academique" class="project-content hidden">
+          <!-- Même structure que Publics ici -->
+        </div>
+
+        <!-- SECTION : VIDEOS (Cachée par défaut) -->
+        <div id="project-videos" class="project-content hidden">
+          <div class="aspect-video w-full bg-black rounded-2xl flex items-center justify-center">
+            <span class="text-[#F7941D] font-bold">LECTEUR VIDÉO BATIC</span>
+          </div>
+        </div>
+
+      </section>
+      @!component('components/footer')
+
+    </main>
+  @endslot
+@end
