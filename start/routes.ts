@@ -7,6 +7,7 @@
 |
 */
 
+import AuthController from '#controllers/auth_controller'
 import router from '@adonisjs/core/services/router'
 
 router.on('/').render('pages/home')
@@ -33,3 +34,17 @@ router
     return view.render('pages/contact')
   })
   .as('contact')
+
+router
+  .get('/admin', async ({ view }) => {
+    return view.render('pages/admin')
+  })
+  .as('admin')
+
+router
+  .get('/formulaires', async ({ view }) => {
+    return view.render('pages/formulaires')
+  })
+  .as('formulaires')
+
+router.post('/admin/register', [AuthController, 'handlCreation']).as('auth.creation')
