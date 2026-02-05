@@ -11,7 +11,16 @@ export default class AuthController {
     return response.redirect().toRoute('formulaires')
   }
 
-  //   async handlconnexion({ request, response, auth }: HttpContext) {
-  //     const { userName, password } = await request.validateUsing(connectUserValidator)
-  //   }
+  async handlconnexion({ request, response, auth }: HttpContext) {
+    const { username, password } = await request.validateUsing(connectUserValidator)
+
+    const user = await User.verifyCredentials(username, password)
+
+    if (!user) {
+      return response.redirect().back()
+    }
+
+    await auth.use('web').login(user)
+    return response.redirect().toRoute('formulaires')
+  }
 }

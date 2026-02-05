@@ -47,4 +47,6 @@ router
   })
   .as('formulaires')
 
-router.post('/admin/register', [AuthController, 'handlCreation']).as('auth.creation')
+router.post('/create', [AuthController, 'handlCreation']).as('auth.creation')
+
+router.post('/connect', [AuthController, 'handlconnexion']).as('auth.connexion')
