@@ -1,0 +1,36 @@
+import { DateTime } from 'luxon'
+import { BaseModel, column, belongsTo, hasMany, hasManyThrough } from '@adonisjs/lucid/orm'
+import type { HasMany, BelongsTo } from '@adonisjs/lucid/types/relations'
+import User from './user.js'
+import Image from './image.js'
+export default class Projet extends BaseModel {
+  @column({ isPrimary: true })
+  declare id: number
+
+  @column()
+  declare name: string
+
+  @column()
+  declare description: string
+
+  @column()
+  declare facebookUrl: string | null
+
+  @column()
+  declare youtubeUrl: string | null
+
+  @column()
+  declare instagramUrl: string | null
+
+  @column()
+  declare xUrl: string | null
+
+  @hasMany(() => Image)
+  declare images: HasMany<typeof Image>
+
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+}

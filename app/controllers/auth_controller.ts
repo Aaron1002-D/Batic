@@ -3,15 +3,17 @@ import { connectUserValidator, createUserValidator } from '#validators/auth'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class AuthController {
-  async handlCreation({ response, request }: HttpContext) {
+  async handleCreation({ response, request, auth }: HttpContext) {
     const { username, password } = await request.validateUsing(createUserValidator)
 
     const user = await User.create({ username, password })
 
+    await auth.use('web').login(user)
+
     return response.redirect().toRoute('formulaires')
   }
 
-  async handlconnexion({ request, response, auth }: HttpContext) {
+  async handleconnexion({ request, response, auth }: HttpContext) {
     const { username, password } = await request.validateUsing(connectUserValidator)
 
     const user = await User.verifyCredentials(username, password)
@@ -22,5 +24,10 @@ export default class AuthController {
 
     await auth.use('web').login(user)
     return response.redirect().toRoute('formulaires')
+  }
+
+  async logout({ auth, response }: HttpContext) {
+    await auth.use('web').logout()
+    return response.redirect().toRoute('admin')
   }
 }

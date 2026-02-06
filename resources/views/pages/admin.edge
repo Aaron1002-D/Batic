@@ -63,11 +63,12 @@
             </div>
 
             <!-- FORMULAIRE CONNEXION -->
-            <form id="form-login" action="/connect" method="POST" class="space-y-6">
+            <form id="form-login" action="/connect" method="POST" class="space-y-6" autocomplete="off">
               {{ csrfField() }}
               <div>
                 <label class="block text-[10px] font-mono uppercase tracking-[0.3em] text-[#F7941D] mb-2">UserName</label>
                 <input
+                  autocomplete="one-time-code"
                   type="text"
                   name="username"
                   required
@@ -77,7 +78,9 @@
               <div>
                 <label class="block text-[10px] font-mono uppercase tracking-[0.3em] text-[#F7941D] mb-2">Mot de passe</label>
                 <input
-                  type="password"
+                  autocomplete="new-password
+                  type="
+                  password
                   name="password"
                   required
                   class="w-full bg-white/5 border-b-2 border-white/20 px-4 py-3 outline-none focus:border-[#F7941D] transition-colors"
@@ -92,7 +95,7 @@
             </form>
 
             <!-- FORMULAIRE CRÉATION (Caché par défaut) -->
-            <form id="form-register" action="/create" method="POST" class="hidden space-y-6">
+            <form id="form-register" action="/create" method="POST" class="hidden space-y-6" autocomplete="off">
               {{ csrfField() }}
               <div>
                 <label class="block text-[10px] font-mono uppercase tracking-[0.3em] text-white mb-2">UserName</label>
@@ -147,6 +150,7 @@
           btnLogin.classList.add("text-white/40", "border-transparent");
         }
       }
+      // Force le vidage des champs après 100ms (le temps que le navigateur remplisse)
     </script>
   @endslot
 @end

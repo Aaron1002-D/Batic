@@ -9,8 +9,9 @@
 
 import AuthController from '#controllers/auth_controller'
 import router from '@adonisjs/core/services/router'
+import { middleware } from './kernel.js'
 
-router.on('/').render('pages/home')
+router.on('/').render('pages/home').as('home')
 router
   .get('/projets', async ({ view }) => {
     return view.render('pages/Projets')
@@ -36,7 +37,10 @@ router
   .as('contact')
 
 router
-  .get('/admin', async ({ view }) => {
+  .get('/admin', async ({ view, auth, response }) => {
+    if (await auth.use('web').check()) {
+      return response.redirect().toRoute('formulaires')
+    }
     return view.render('pages/admin')
   })
   .as('admin')
@@ -46,7 +50,10 @@ router
     return view.render('pages/formulaires')
   })
   .as('formulaires')
+  .use(middleware.auth())
 
-router.post('/create', [AuthController, 'handlCreation']).as('auth.creation')
+router.post('/create', [AuthController, 'handleCreation']).as('auth.creation')
 
-router.post('/connect', [AuthController, 'handlconnexion']).as('auth.connexion')
+router.post('/connect', [AuthController, 'handleconnexion']).as('auth.connexion')
+
+router.post('/logout', [AuthController, 'logout']).as('auth.logout')

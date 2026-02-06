@@ -4,5 +4,9 @@
     <h1>
       yes
     </h1>
+    <form action="/logout" method="POST">
+      {{ csrfField() }}
+      <button type="submit">Deconnexion</button>
+    </form>
   @endslot
 @end
