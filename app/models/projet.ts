@@ -1,9 +1,10 @@
+// app/models/project.ts
 import { DateTime } from 'luxon'
-import { BaseModel, column, belongsTo, hasMany, hasManyThrough } from '@adonisjs/lucid/orm'
-import type { HasMany, BelongsTo } from '@adonisjs/lucid/types/relations'
-import User from './user.js'
-import Image from './image.js'
-export default class Projet extends BaseModel {
+import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import User from '#models/user'
+
+export default class Project extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
@@ -13,6 +14,7 @@ export default class Projet extends BaseModel {
   @column()
   declare description: string
 
+  // Réseaux sociaux
   @column()
   declare facebookUrl: string | null
 
@@ -25,8 +27,13 @@ export default class Projet extends BaseModel {
   @column()
   declare xUrl: string | null
 
-  @hasMany(() => Image)
-  declare images: HasMany<typeof Image>
+  // Clé étrangère
+  @column()
+  declare userId: number
+
+  // Relation inverse : Le projet appartient à un User
+  @belongsTo(() => User)
+  declare user: BelongsTo<typeof User>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

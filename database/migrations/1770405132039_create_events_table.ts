@@ -14,6 +14,8 @@ export default class extends BaseSchema {
       table.string('instagram_url').nullable()
       table.string('x_url').nullable()
 
+      table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
+
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })

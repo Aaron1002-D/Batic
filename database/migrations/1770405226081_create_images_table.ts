@@ -9,7 +9,7 @@ export default class extends BaseSchema {
       table.string('url').notNullable() // Chemin vers le fichier
       // Liens vers projet ou événement
       table
-        .integer('project_id')
+        .integer('projects_id')
         .unsigned()
         .references('id')
         .inTable('projects')
