@@ -1,12 +1,250 @@
-@layout.main({ title : "BATIC Sarl - Administration"})
+@layout.main({ title : "BATIC Sarl - Dashboard Gestion" })
   @slot('main')
+    <main class="bg-[#191256] min-h-screen text-white flex flex-col relative overflow-x-hidden">
 
-    <h1>
-      yes
-    </h1>
-    <form action="/logout" method="POST">
-      {{ csrfField() }}
-      <button type="submit">Deconnexion</button>
-    </form>
+      <!-- FILIGRANE GRILLE ARCHITECTURALE -->
+      <div class="absolute inset-0 opacity-5 pointer-events-none">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" stroke-width="0.5" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+      </div>
+
+      <!-- HEADER NAVIGATION -->
+      <section class="px-6 md:px-20 pt-8 z-20">
+        <div class="flex justify-between items-center border-b border-white/10 pb-4">
+          <div class="flex items-center gap-8">
+            <a href="/" class="text-[#F7941D] font-black italic uppercase tracking-tighter">← Site Vitrine</a>
+            <span class="hidden md:inline text-[10px] font-mono tracking-[0.3em] uppercase opacity-50 text-white">Console Administration</span>
+          </div>
+
+          <form action="/logout" method="POST">
+            {{ csrfField() }}
+            <button
+              type="submit"
+              class="group flex items-center gap-2 text-white/60 hover:text-red-500 transition-colors"
+            >
+              <span class="text-[10px] font-mono uppercase tracking-widest">Déconnexion</span>
+              <div class="w-8 h-[1px] bg-white/20 group-hover:bg-red-500">
+              </div>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ZONE FORMULAIRES -->
+      <div class="flex-grow flex items-start justify-center px-6 py-12 relative z-10">
+        <div class="w-full max-w-5xl">
+
+          <!-- SWITCHER DE CONTENU -->
+          <div class="flex gap-12 mb-12">
+            <button
+              onclick="switchTab('project')"
+              id="btn-project"
+              class="text-4xl md:text-6xl font-black uppercase italic tracking-tighter transition-all text-[#F7941D] border-b-4 border-[#F7941D]"
+            >
+              Projets
+            </button>
+            <button
+              onclick="switchTab('event')"
+              id="btn-event"
+              class="text-4xl md:text-6xl font-black uppercase italic tracking-tighter transition-all text-white/20 border-b-4 border-transparent hover:text-white/50"
+            >
+              Événements
+            </button>
+          </div>
+
+          <!-- FORMULAIRE PROJET -->
+          <div id="section-project" class="grid md:grid-cols-12 gap-12 animate-in fade-in duration-500">
+            <div class="md:col-span-4">
+              <h3 class="text-[#F7941D] font-mono text-xs tracking-[0.4em] uppercase mb-4">
+                01 / Informations
+              </h3>
+              <p class="text-sm text-white/50 italic leading-relaxed">
+                Ajoutez un nouveau chantier à votre portfolio. <br />                <br />
+                <span class="text-white font-bold italic underline">Note :</span>Vous devez impérativement sélectionner 4 photos pour valider la publication.
+              </p>
+            </div>
+
+            <form
+              action="/projects"
+              method="POST"
+              enctype="multipart/form-data"
+              class="md:col-span-8 space-y-8 bg-white/5 p-8 border border-white/10"
+            >
+              {{ csrfField() }}
+              <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Nom du Projet</label>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none transition-all italic"
+                    placeholder="Ex: Résidence Horizon"
+                  />
+                </div>
+                <div class="space-y-2">
+                  <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Photos (Sélectionnez exactement 4)</label>
+                  <input
+                    type="file"
+                    name="images[]"
+                    multiple
+                    required
+                    accept="image/*"
+                    class="w-full text-xs file:bg-[#F7941D] file:border-none file:px-4 file:py-2 file:text-[#191256] file:font-black file:italic file:uppercase cursor-pointer"
+                  />
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Description du Projet</label>
+                <textarea
+                  name="description"
+                  rows="4"
+                  required
+                  class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none transition-all"
+                  placeholder="Détails techniques, vision, défis relevés..."
+                ></textarea>
+              </div>
+
+              <!-- RESEAUX SOCIAUX -->
+              <div class="pt-6 border-t border-white/10">
+                <label class="text-[10px] font-mono uppercase tracking-widest text-white/40 block mb-6 italic">Liens de visibilité (Optionnel)</label>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <input
+                    type="url"
+                    name="facebook"
+                    placeholder="Facebook URL"
+                    class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D]"
+                  />
+                  <input
+                    type="url"
+                    name="instagram"
+                    placeholder="Instagram URL"
+                    class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D]"
+                  />
+                  <input
+                    type="url"
+                    name="youtube"
+                    placeholder="YouTube URL"
+                    class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D]"
+                  />
+                  <input
+                    type="url"
+                    name="x"
+                    placeholder="X (Twitter) URL"
+                    class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D]"
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                class="w-full bg-[#F7941D] text-[#191256] font-black uppercase italic py-4 hover:bg-white transition-all transform hover:-translate-y-1"
+              >
+                Publier le Projet
+              </button>
+            </form>
+          </div>
+
+          <!-- FORMULAIRE ÉVÉNEMENT -->
+          <div id="section-event" class="hidden grid md:grid-cols-12 gap-12 animate-in fade-in duration-500">
+            <div class="md:col-span-4">
+              <h3 class="text-[#F7941D] font-mono text-xs tracking-[0.4em] uppercase mb-4">
+                02 / Événementiel
+              </h3>
+              <p class="text-sm text-white/50 italic leading-relaxed">
+                Annoncez les inaugurations, séminaires ou événements BATIC. <br />                <br />
+                Le respect de la charte visuelle (4 photos) assure la symétrie du site vitrine.
+              </p>
+            </div>
+
+            <form
+              action="/events"
+              method="POST"
+              enctype="multipart/form-data"
+              class="md:col-span-8 space-y-8 bg-white/5 p-8 border border-white/10"
+            >
+              {{ csrfField() }}
+              <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Titre de l'Événement</label>
+                  <input
+                    type="text"
+                    name="title"
+                    required
+                    class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none transition-all italic"
+                    placeholder="Ex: Inauguration Siège Goma"
+                  />
+                </div>
+                <div class="space-y-2">
+                  <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">4 Photos Obligatoires</label>
+                  <input
+                    type="file"
+                    name="images[]"
+                    multiple
+                    required
+                    accept="image/*"
+                    class="w-full text-xs file:bg-white file:border-none file:px-4 file:py-2 file:text-[#191256] file:font-black file:italic file:uppercase cursor-pointer"
+                  />
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Description</label>
+                <textarea
+                  name="description"
+                  rows="4"
+                  required
+                  class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none transition-all"
+                  placeholder="Décrivez le déroulement de l'événement..."
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                class="w-full bg-white text-[#191256] font-black uppercase italic py-4 hover:bg-[#F7941D] transition-all transform hover:-translate-y-1"
+              >
+                Publier l'Événement
+              </button>
+            </form>
+          </div>
+          {{--  <form action="/logout" method="POST">
+            {{ csrfField() }}
+          <button type="submit">Deconnexion</button>
+          </form>  --}}
+        </div>
+      </div>
+    </main>
+
+    <script>
+      function switchTab(tab) {
+        const secProject = document.getElementById("section-project");
+        const secEvent = document.getElementById("section-event");
+        const btnProject = document.getElementById("btn-project");
+        const btnEvent = document.getElementById("btn-event");
+        if (tab === "project") {
+          secProject.classList.remove("hidden");
+          secEvent.classList.add("hidden");
+          btnProject.classList.add("text-[#F7941D]", "border-[#F7941D]");
+          btnProject.classList.remove("text-white/20", "border-transparent");
+          btnEvent.classList.add("text-white/20", "border-transparent");
+          btnEvent.classList.remove("text-[#F7941D]", "border-[#F7941D]");
+        } else {
+          secProject.classList.add("hidden");
+          secEvent.classList.remove("hidden");
+          btnEvent.classList.add("text-[#F7941D]", "border-[#F7941D]");
+          btnEvent.classList.remove("text-white/20", "border-transparent");
+          btnProject.classList.add("text-white/20", "border-transparent");
+          btnProject.classList.remove("text-[#F7941D]", "border-[#F7941D]");
+        }
+      }
+    </script>
   @endslot
 @end
+

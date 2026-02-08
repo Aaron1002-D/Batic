@@ -57,3 +57,7 @@ router.post('/create', [AuthController, 'handleCreation']).as('auth.creation')
 router.post('/connect', [AuthController, 'handleconnexion']).as('auth.connexion')
 
 router.post('/logout', [AuthController, 'logout']).as('auth.logout')
+
+router.post('/test', () => {
+  console.log('TEST ROUTE OK')
+})

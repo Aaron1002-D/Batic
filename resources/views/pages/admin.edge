@@ -62,8 +62,30 @@
               </button>
             </div>
 
+            @if(session.has('error'))
+              <div
+                class="bg-red-500/20 border border-red-500 text-red-500 p-4 mb-6 text-xs font-mono uppercase tracking-widest"
+              >
+                {{ session.get('error') }}
+              </div>
+            @endif
+            
+            @if(session.has('success'))
+              <div
+                class="bg-green-500/20 border border-green-500 text-green-500 p-4 mb-6 text-xs font-mono uppercase tracking-widest"
+              >
+                {{ session.get('success') }}
+              </div>
+            @endif
+            
             <!-- FORMULAIRE CONNEXION -->
-            <form id="form-login" action="/connect" method="POST" class="space-y-6" autocomplete="off">
+            <form
+              id="form-login"
+              action="{{ route('auth.connexion') }}"
+              method="POST"
+              class="space-y-6"
+              autocomplete="off"
+            >
               {{ csrfField() }}
               <div>
                 <label class="block text-[10px] font-mono uppercase tracking-[0.3em] text-[#F7941D] mb-2">UserName</label>
