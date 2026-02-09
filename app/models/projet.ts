@@ -28,6 +28,9 @@ export default class Project extends BaseModel {
   @column()
   declare xUrl: string | null
 
+  @column()
+  declare tiktokUrl: string | null
+
   // Clé étrangère
   @column()
   declare userId: number

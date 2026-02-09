@@ -10,6 +10,8 @@
 import AuthController from '#controllers/auth_controller'
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+import ProjectsController from '#controllers/projects_controller'
+import EventsController from '#controllers/events_controller'
 
 router.on('/').render('pages/home').as('home')
 router
@@ -61,3 +63,11 @@ router.post('/logout', [AuthController, 'logout']).as('auth.logout')
 router.post('/test', () => {
   console.log('TEST ROUTE OK')
 })
+
+// routes pour poster un porjet
+
+router.post('/post-projet', [ProjectsController, 'store']).as('post.projet').use(middleware.auth())
+
+// routes pour poster un evenement
+
+router.post('/post-event', [EventsController, 'store']).as('post.event').use(middleware.auth())

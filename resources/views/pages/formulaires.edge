@@ -65,13 +65,13 @@
                 01 / Informations
               </h3>
               <p class="text-sm text-white/50 italic leading-relaxed">
-                Ajoutez un nouveau chantier à votre portfolio. <br />                <br />
+                Ajoutez un nouveau projet <br />                <br />
                 <span class="text-white font-bold italic underline">Note :</span>Vous devez impérativement sélectionner 4 photos pour valider la publication.
               </p>
             </div>
 
             <form
-              action="/projects"
+              action="/post-projet"
               method="POST"
               enctype="multipart/form-data"
               class="md:col-span-8 space-y-8 bg-white/5 p-8 border border-white/10"
@@ -92,7 +92,7 @@
                   <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Photos (Sélectionnez exactement 4)</label>
                   <input
                     type="file"
-                    name="images[]"
+                    name="images"
                     multiple
                     required
                     accept="image/*"
@@ -118,26 +118,32 @@
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <input
                     type="url"
-                    name="facebook"
+                    name="facebookUrl"
                     placeholder="Facebook URL"
                     class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D]"
                   />
                   <input
                     type="url"
-                    name="instagram"
+                    name="instagramUrl"
                     placeholder="Instagram URL"
                     class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D]"
                   />
                   <input
                     type="url"
-                    name="youtube"
+                    name="youtubeUrl"
                     placeholder="YouTube URL"
                     class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D]"
                   />
                   <input
                     type="url"
-                    name="x"
+                    name="xUrl"
                     placeholder="X (Twitter) URL"
+                    class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D]"
+                  />
+                  <input
+                    type="url"
+                    name="tiktokUrl"
+                    placeholder="tiktok URL"
                     class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D]"
                   />
                 </div>
@@ -165,7 +171,7 @@
             </div>
 
             <form
-              action="/events"
+              action="/post-event"
               method="POST"
               enctype="multipart/form-data"
               class="md:col-span-8 space-y-8 bg-white/5 p-8 border border-white/10"
@@ -186,7 +192,7 @@
                   <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">4 Photos Obligatoires</label>
                   <input
                     type="file"
-                    name="images[]"
+                    name="images"
                     multiple
                     required
                     accept="image/*"
@@ -204,6 +210,43 @@
                   class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none transition-all"
                   placeholder="Décrivez le déroulement de l'événement..."
                 ></textarea>
+              </div>
+
+              <!-- RESEAUX SOCIAUX -->
+              <div class="pt-6 border-t border-white/10">
+                <label class="text-[10px] font-mono uppercase tracking-widest text-white/40 block mb-6 italic">Liens de visibilité (Optionnel)</label>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <input
+                    type="url"
+                    name="facebookUrl"
+                    placeholder="Facebook URL"
+                    class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D]"
+                  />
+                  <input
+                    type="url"
+                    name="instagramUrl"
+                    placeholder="Instagram URL"
+                    class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D]"
+                  />
+                  <input
+                    type="url"
+                    name="youtubeUrl"
+                    placeholder="YouTube URL"
+                    class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D]"
+                  />
+                  <input
+                    type="url"
+                    name="xUrl"
+                    placeholder="X (Twitter) URL"
+                    class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D]"
+                  />
+                  <input
+                    type="url"
+                    name="tiktokUrl"
+                    placeholder="tiktok URL"
+                    class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D]"
+                  />
+                </div>
               </div>
 
               <button

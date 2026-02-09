@@ -35,6 +35,12 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare events: HasMany<typeof Event>
 
   // --- FIN RELATIONS ---
+  @beforeSave()
+  static async hashPassword(user: User) {
+    if (user.$dirty.password) {
+      user.password = await hash.make(user.password)
+    }
+  }
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

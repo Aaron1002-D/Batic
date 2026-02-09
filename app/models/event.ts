@@ -29,6 +29,9 @@ export default class Event extends BaseModel {
   declare xUrl: string | null
 
   @column()
+  declare tiktok: string | null
+
+  @column()
   declare userId: number
 
   @belongsTo(() => User)
