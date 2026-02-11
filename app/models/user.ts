@@ -2,17 +2,18 @@
 
 import { DateTime } from 'luxon'
 import hash from '@adonisjs/core/services/hash'
+import { Hash } from '@adonisjs/core/hash'
 import { compose } from '@adonisjs/core/helpers'
 import { BaseModel, column, beforeSave, hasMany } from '@adonisjs/lucid/orm' // <--- Ajout de hasMany
 import type { HasMany } from '@adonisjs/lucid/types/relations' // <--- Ajout du type
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 
 // Importation différée pour éviter les cycles de dépendance
-import Projet from './projet.js'
+import Project from './projet.js'
 import Event from './event.js'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
-  uids: ['username'],
+  uids: ['email'],
   passwordColumnName: 'password',
 })
 
@@ -21,27 +22,25 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare id: number
 
   @column()
-  declare username: string
+  declare email: string
 
   @column({ serializeAs: null })
   declare password: string
 
   // --- RELATIONS ---
 
-  @hasMany(() => Projet)
-  declare projects: HasMany<typeof Projet>
+  @hasMany(() => Project)
+  declare projects: HasMany<typeof Project>
 
   @hasMany(() => Event)
   declare events: HasMany<typeof Event>
 
-  // --- FIN RELATIONS ---
-  @beforeSave()
-  static async hashPassword(user: User) {
-    if (user.$dirty.password) {
-      user.password = await hash.make(user.password)
-    }
-  }
-
+  // @beforeSave()
+  // public static async hashPassword(user: any) {
+  //   if (user.$dirty.password) {
+  //     user.password = await Hash.make(user.password)
+  //   }
+  // }
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

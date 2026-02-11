@@ -1,34 +1,36 @@
 import User from '#models/user'
 import { connectUserValidator, createUserValidator } from '#validators/auth'
 import type { HttpContext } from '@adonisjs/core/http'
+import hash from '@adonisjs/core/services/hash'
 import { errors } from '@adonisjs/auth' // Import pour détecter l'erreur précise
 
 export default class AuthController {
   async handleCreation({ response, request, auth }: HttpContext) {
-    const { username, password } = await request.validateUsing(createUserValidator)
+    const { email, password } = await request.validateUsing(createUserValidator)
 
-    const user = await User.create({ username, password })
+    const user = await User.create({ email, password })
 
     await auth.use('web').login(user)
 
     return response.redirect().toRoute('formulaires')
   }
 
-  async handleconnexion({ request, response, auth, session }: HttpContext) {
-    const { username, password } = await request.validateUsing(connectUserValidator)
-    console.log('methode appelee')
-    console.log('DATA RECUE :', { username, password })
-
+  async handleconnexion({ request, response, auth }: HttpContext) {
+    // return 'je suis dans le controller'
     try {
-      const user = await User.verifyCredentials(username, password)
-      // Ici, user est forcément valide si on arrive à cette ligne
-      await auth.use('web').login(user as User)
-      console.log(user)
+      const { email, password } = request.only(['email', 'password'])
+
+      const user = await User.verifyCredentials(email, password)
+
+      await auth.use('web').login(user)
       return response.redirect().toRoute('formulaires')
     } catch (error) {
-      // Si verifyCredentials échoue, on arrive ici
-      session.flash('error', 'Identifiants invalides')
-      return response.redirect().back()
+      // On arrête tout et on affiche l'erreur brute
+      return response.json({
+        message: 'Erreur de connexion',
+        error: error.message,
+        code: error.code, // Très important pour Adonis
+      })
     }
   }
 

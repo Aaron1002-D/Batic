@@ -79,20 +79,14 @@
             @endif
             
             <!-- FORMULAIRE CONNEXION -->
-            <form
-              id="form-login"
-              action="{{ route('auth.connexion') }}"
-              method="POST"
-              class="space-y-6"
-              autocomplete="off"
-            >
+            <form id="form-login" action="/connect" method="POST" class="space-y-6" autocomplete="off">
               {{ csrfField() }}
               <div>
-                <label class="block text-[10px] font-mono uppercase tracking-[0.3em] text-[#F7941D] mb-2">UserName</label>
+                <label class="block text-[10px] font-mono uppercase tracking-[0.3em] text-[#F7941D] mb-2">Email</label>
                 <input
-                  autocomplete="one-time-code"
-                  type="text"
-                  name="username"
+                  autocomplete="email"
+                  type="email"
+                  name="email"
                   required
                   class="w-full bg-white/5 border-b-2 border-white/20 px-4 py-3 outline-none focus:border-[#F7941D] transition-colors font-light italic"
                 />
@@ -100,9 +94,8 @@
               <div>
                 <label class="block text-[10px] font-mono uppercase tracking-[0.3em] text-[#F7941D] mb-2">Mot de passe</label>
                 <input
-                  autocomplete="new-password
-                  type="
-                  password
+                  autocomplete="new-password"
+                  type="password"
                   name="password"
                   required
                   class="w-full bg-white/5 border-b-2 border-white/20 px-4 py-3 outline-none focus:border-[#F7941D] transition-colors"
@@ -120,10 +113,10 @@
             <form id="form-register" action="/create" method="POST" class="hidden space-y-6" autocomplete="off">
               {{ csrfField() }}
               <div>
-                <label class="block text-[10px] font-mono uppercase tracking-[0.3em] text-white mb-2">UserName</label>
+                <label class="block text-[10px] font-mono uppercase tracking-[0.3em] text-white mb-2">Email</label>
                 <input
-                  type="text"
-                  name="username"
+                  type="email"
+                  name="email"
                   required
                   class="w-full bg-white/5 border-b-2 border-white/20 px-4 py-3 outline-none focus:border-white transition-colors font-light italic text-white"
                 />

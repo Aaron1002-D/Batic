@@ -39,7 +39,7 @@ export default class EventsController {
 
       for (let mediaFile of images) {
         if (mediaFile.isValid) {
-          const fileName = `${cuid}-${mediaFile.extname}`
+          const fileName = `${cuid()}-${mediaFile.extname}`
 
           await mediaFile.move(app.makePath('public/uploads'), {
             name: fileName,

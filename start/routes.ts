@@ -12,6 +12,7 @@ import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 import ProjectsController from '#controllers/projects_controller'
 import EventsController from '#controllers/events_controller'
+import User from '#models/user'
 
 router.on('/').render('pages/home').as('home')
 router
@@ -71,3 +72,11 @@ router.post('/post-projet', [ProjectsController, 'store']).as('post.projet').use
 // routes pour poster un evenement
 
 router.post('/post-event', [EventsController, 'store']).as('post.event').use(middleware.auth())
+
+router.get('/test-create', async () => {
+  const user = new User()
+  user.email = 'test@test.com'
+  user.password = 'password123' // Il sera haché automatiquement par le hook @beforeSave
+  await user.save()
+  return 'Utilisateur test créé avec password123'
+})

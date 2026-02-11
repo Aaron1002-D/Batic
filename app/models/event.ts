@@ -29,7 +29,7 @@ export default class Event extends BaseModel {
   declare xUrl: string | null
 
   @column()
-  declare tiktok: string | null
+  declare tiktokUrl: string | null
 
   @column()
   declare userId: number
