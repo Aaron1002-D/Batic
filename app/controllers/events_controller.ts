@@ -52,7 +52,7 @@ export default class EventsController {
         }
       }
 
-      session.flash('success', 'Projet créé avec succès !')
+      session.flash('success', 'Event créé avec succès !')
       return response.redirect().toRoute('events')
     } catch (error) {
       console.error('Erreur lors de la création:', error)
