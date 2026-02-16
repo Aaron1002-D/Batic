@@ -21,11 +21,7 @@ router
   })
   .as('Projet')
 
-router
-  .get('/events', async ({ view }) => {
-    return view.render('pages/evenement')
-  })
-  .as('events')
+router.get('/events', [EventsController, 'index']).as('events')
 
 router
   .get('/equipe', async ({ view }) => {

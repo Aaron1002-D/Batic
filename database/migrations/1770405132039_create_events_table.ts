@@ -8,6 +8,8 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('title').notNullable()
       table.text('description').notNullable()
+      table.string('lieu').nullable()
+
       // Réseaux sociaux
       table.string('facebook_url').nullable()
       table.string('youtube_url').nullable()

@@ -5,6 +5,13 @@ import app from '@adonisjs/core/services/app'
 import Image from '#models/image'
 
 export default class EventsController {
+  async index({ view }: HttpContext) {
+    const events = await Event.query().preload('images').orderBy('created_at', 'desc')
+
+    console.log(events)
+    return view.render('pages/evenement', { events })
+  }
+
   async store({ request, response, session, auth }: HttpContext) {
     const user = auth.user
 
