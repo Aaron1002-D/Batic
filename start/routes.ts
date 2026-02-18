@@ -21,7 +21,7 @@ router
   })
   .as('Projet')
 
-router.get('/events', [EventsController, 'index']).as('events')
+router.get('/events', [EventsController, 'index']).as('events').use(middleware.auth())
 
 router
   .get('/equipe', async ({ view }) => {
@@ -65,9 +65,11 @@ router.post('/test', () => {
 
 router.post('/post-projet', [ProjectsController, 'store']).as('post.projet').use(middleware.auth())
 
-// routes pour poster un evenement
+// routes pour traiter un evenement
 
 router.post('/post-event', [EventsController, 'store']).as('post.event').use(middleware.auth())
+
+router.delete('/events', [EventsController, 'destroy']).as('event.destroy').use(middleware.auth())
 
 router.get('/test-create', async () => {
   const user = new User()

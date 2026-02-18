@@ -8,7 +8,6 @@ export default class EventsController {
   async index({ view }: HttpContext) {
     const events = await Event.query().preload('images').orderBy('created_at', 'desc')
 
-    console.log(events)
     return view.render('pages/evenement', { events })
   }
 
@@ -22,6 +21,7 @@ export default class EventsController {
     const data = request.only([
       'title',
       'description',
+      'lieu',
       'facebookUrl',
       'youtubeUrl',
       'instagramUrl',
@@ -65,6 +65,37 @@ export default class EventsController {
       console.error('Erreur lors de la création:', error)
       session.flash('error', 'Une erreur est survenue lors de la création du projet.')
       return response.redirect().back()
+    }
+  }
+
+  async destroy({ request, response, auth }: HttpContext) {
+    const user = auth.user
+
+    if (!user) {
+      return response.unauthorized('utilisateur non authenfié')
+    }
+
+    const eventId = request.input('event_id')
+
+    console.log('ID event à supprimer (depuis input caché):', eventId)
+
+    if (!eventId) {
+      return response.badRequest("l'id de l'event est manquant")
+    }
+
+    try {
+      const event = await Event.findByOrFail(eventId)
+
+      await event.related('images').query().delete()
+
+      await event.delete()
+
+      return response.redirect().toRoute('events')
+    } catch (error) {
+      console.error('Erreur lors de la suppression du event:', error)
+      return response.internalServerError(
+        'Une erreur est survenue lors de la suppression du event.'
+      )
     }
   }
 }

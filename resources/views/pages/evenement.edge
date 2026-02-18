@@ -44,6 +44,25 @@
               <div class="flex items-center gap-2 text-sm text-gray-400 font-bold uppercase">
                 <span class="text-[#F7941D]">📍</span>{{ event.lieu }}
               </div>
+
+              @if(auth.user)
+                <form action="{{ route('event.destroy') }}?_method=DELETE" method="post" class="mt-[50px]">
+                  {{ csrfField() }}
+
+                <button
+                    type="submit"
+                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce tweet ?')"
+                    class="group flex items-center gap-2 text-white/60 hover:text-red-500 transition-colors"
+                  >
+                    <input type="hidden" name="event_id" value="{{ event.id }}" />
+
+                    <span class="text-[10px] font-mono uppercase tracking-widest">Supprimer</span>
+                    <div class="w-8 h-[1px] bg-white/20 group-hover:bg-red-500">
+                    </div>
+                  </button>
+
+                </form>
+              @endif
             </div>
 
             <!-- Galerie de 4 photos (Droite) -->
