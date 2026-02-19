@@ -21,7 +21,7 @@ router
   })
   .as('Projet')
 
-router.get('/events', [EventsController, 'index']).as('events').use(middleware.auth())
+router.get('/events', [EventsController, 'index']).as('events')
 
 router
   .get('/equipe', async ({ view }) => {
@@ -57,10 +57,6 @@ router.post('/connect', [AuthController, 'handleconnexion']).as('auth.connexion'
 
 router.post('/logout', [AuthController, 'logout']).as('auth.logout')
 
-router.post('/test', () => {
-  console.log('TEST ROUTE OK')
-})
-
 // routes pour poster un porjet
 
 router.post('/post-projet', [ProjectsController, 'store']).as('post.projet').use(middleware.auth())
@@ -71,10 +67,21 @@ router.post('/post-event', [EventsController, 'store']).as('post.event').use(mid
 
 router.delete('/events', [EventsController, 'destroy']).as('event.destroy').use(middleware.auth())
 
+// routes test pour debug
+
+router.post('/test', () => {
+  console.log('TEST ROUTE OK')
+})
+
 router.get('/test-create', async () => {
   const user = new User()
   user.email = 'test@test.com'
   user.password = 'password123' // Il sera haché automatiquement par le hook @beforeSave
   await user.save()
   return 'Utilisateur test créé avec password123'
+})
+
+router.get('/test-auth', async ({ auth }) => {
+  console.log(auth)
+  return 'ok'
 })

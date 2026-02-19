@@ -5,10 +5,13 @@ import app from '@adonisjs/core/services/app'
 import Image from '#models/image'
 
 export default class EventsController {
-  async index({ view }: HttpContext) {
+  async index({ view, auth }: HttpContext) {
+    await auth.check()
     const events = await Event.query().preload('images').orderBy('created_at', 'desc')
 
-    return view.render('pages/evenement', { events })
+    const user = auth.user
+
+    return view.render('pages/evenement', { events, user })
   }
 
   async store({ request, response, session, auth }: HttpContext) {
@@ -84,7 +87,7 @@ export default class EventsController {
     }
 
     try {
-      const event = await Event.findByOrFail(eventId)
+      const event = await Event.findOrFail(eventId)
 
       await event.related('images').query().delete()
 

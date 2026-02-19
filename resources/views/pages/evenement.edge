@@ -45,7 +45,35 @@
                 <span class="text-[#F7941D]">📍</span>{{ event.lieu }}
               </div>
 
-              @if(auth.user)
+              <div class="flex gap-[20px] mt-[20px]">
+                <a
+                  href="{{ event.facebookUrl }}"
+                  target="_blank"
+                  class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
+                >FB</a>
+                <a
+                  href=" {{ event.instagramUrl }}"
+                  target="_blank"
+                  class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
+                >IN</a>
+                <a
+                  href=" {{ event.youtubeUrl }}"
+                  target="_blank"
+                  class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
+                >YT</a>
+                <a
+                  href="{{ event.xUrl }}"
+                  target="_blank"
+                  class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
+                >X</a>
+                <a
+                  href="{{ event.tiktokUrl }}"
+                  target="_blank"
+                  class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
+                >TK</a>
+              </div>
+
+              @if(user)
                 <form action="{{ route('event.destroy') }}?_method=DELETE" method="post" class="mt-[50px]">
                   {{ csrfField() }}
 
