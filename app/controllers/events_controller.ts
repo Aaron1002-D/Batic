@@ -101,4 +101,33 @@ export default class EventsController {
       )
     }
   }
+
+  async update({ request, response, auth, params }: HttpContext) {
+    await auth.check()
+
+    const user = auth.user
+
+    if (!user) {
+      return response.unauthorized("seul l'admin peut modifier un event")
+    }
+
+    const event = await Event.findOrFail(params.id)
+
+    const data = request.only([
+      'title',
+      'description',
+      'lieu',
+      'facebookUrl',
+      'youtubeUrl',
+      'instagramUrl',
+      'xUrl',
+      'tiktokUrl',
+    ])
+
+    event.merge(data)
+
+    await event.save()
+
+    return response.redirect().back()
+  }
 }

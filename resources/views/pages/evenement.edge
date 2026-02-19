@@ -74,6 +74,14 @@
               </div>
 
               @if(user)
+                <button onclick="openEditModal({{ JSON.stringify(event) }})">
+                  <span class="text-[10px] font-mono uppercase tracking-widest">Editer</span>
+                  <div class="w-8 h-[1px] bg-white/20 group-hover:bg-red-500">
+                  </div>
+                </button>
+              @endif
+              
+              @if(user)
                 <form action="{{ route('event.destroy') }}?_method=DELETE" method="post" class="mt-[50px]">
                   {{ csrfField() }}
 
@@ -91,6 +99,7 @@
 
                 </form>
               @endif
+              
             </div>
 
             <!-- Galerie de 4 photos (Droite) -->
@@ -128,6 +137,142 @@
             </div>
 
           </article>
+          <div
+            id="editModal"
+            class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 pt-[100px]"
+          >
+
+            <!-- Overlay -->
+            <div id="modalOverlay" class="absolute inset-0">
+            </div>
+
+            <!-- Contenu -->
+            <div
+              class="relative w-full max-w-4xl bg-[#191256] border border-white/10 p-10 animate-in fade-in duration-300"
+            >
+
+              <!-- Bouton X -->
+              <button
+                type="button"
+                onclick="closeEditModal()"
+                class="absolute top-5 right-6 text-white/40 hover:text-[#F7941D] transition-colors text-xl font-bold"
+              >
+                ×
+                </button>
+
+              <h3 class="text-[#F7941D] font-mono text-xs tracking-[0.4em] uppercase mb-8">
+                Modifier l'Événement
+              </h3>
+
+              <form id="editForm" class="space-y-8" action="{{ route('events.update') }}?_method=PUT" method="post">
+                {{ csrfField() }}
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div class="space-y-2">
+                    <input type="hidden" name="event_id" value="{{ event.id }}" />
+
+                    <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">
+                      Titre
+                    </label>
+                    <input
+                      type="text"
+                      name="title"
+                      id="editTitle"
+                      required
+                      class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none italic"
+                    />
+                  </div>
+
+                  <div class="space-y-2">
+                    <label class="text-[10px] font-mono uppercase tracking-widest text-white/40">
+                      Photos (Non modifiables)
+                    </label>
+                    <div class="w-full bg-white/5 border border-white/10 p-3 text-xs text-white/40 italic">
+                      Les photos ne peuvent pas être modifiées après publication.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="space-y-2">
+                  <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">
+                    Description
+                  </label>
+                  <textarea
+                    name="description"
+                    id="editDescription"
+                    rows="4"
+                    required
+                    class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none"
+                  >
+                  </textarea>
+                </div>
+
+                <div class="space-y-2">
+                  <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">
+                    Lieu
+                  </label>
+                  <input
+                    type="text"
+                    name="lieu"
+                    id="editLieu"
+                    class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none italic"
+                  />
+                </div>
+
+                <!-- RESEAUX SOCIAUX -->
+                <div class="pt-6 border-t border-white/10">
+                  <label class="text-[10px] font-mono uppercase tracking-widest text-white/40 block mb-6 italic">
+                    Liens de visibilité (Optionnel)
+        </label>
+
+                  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <input
+                      type="url"
+                      name="facebookUrl"
+                      id="editFacebook"
+                      class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D]"
+                    />
+
+                    <input
+                      type="url"
+                      name="instagramUrl"
+                      id="editInstagram"
+                      class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D]"
+                    />
+
+                    <input
+                      type="url"
+                      name="youtubeUrl"
+                      id="editYoutube"
+                      class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D]"
+                    />
+
+                    <input
+                      type="url"
+                      name="xUrl"
+                      id="editX"
+                      class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D]"
+                    />
+
+                    <input
+                      type="url"
+                      name="tiktokUrl"
+                      id="editTiktok"
+                      class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D]"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  class="w-full bg-white text-[#191256] font-black uppercase italic py-4 hover:bg-[#F7941D] transition-all transform hover:-translate-y-1"
+                >
+                  Enregistrer les modifications
+                </button>
+
+              </form>
+            </div>
+          </div>
+
         @endeach
           
           
@@ -172,6 +317,45 @@
       @!component('components/footer')
 
     </main>
+
+    <script>
+      const modal = document.getElementById("editModal");
+
+      const overlay = document.getElementById("modalOverlay");
+
+      const form = document.getElementById("editForm");
+
+      function openEditModal(eventData) {
+        document.getElementById("editTitle").value = eventData.title;
+        document.getElementById("editDescription").value = eventData.description;
+        document.getElementById("editLieu").value = eventData.lieu || "";
+        document.getElementById("editFacebook").value = eventData.facebookUrl || "";
+        document.getElementById("editInstagram").value = eventData.instagramUrl || "";
+        document.getElementById("editYoutube").value = eventData.youtubeUrl || "";
+        document.getElementById("editTiktok").value = eventData.tiktokUrl || "";
+        document.getElementById("editX").value = eventData.xUrl || "";
+        form.action = `/events/${eventData.id}`;
+        modal.classList.remove("hidden");
+        document.body.classList.add("overflow-hidden");
+      }
+
+      function closeEditModal() {
+        modal.classList.add("hidden");
+        document.body.classList.remove("overflow-hidden");
+        form.reset();
+      }
+      // Fermer si clic sur overlay
+
+      overlay.addEventListener("click", closeEditModal);
+      // Fermer avec ESC
+
+      document.addEventListener("keydown", function(e) {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+          closeEditModal();
+        }
+      });
+    </script>
+
   @endslot
 @end
   

@@ -67,6 +67,8 @@ router.post('/post-event', [EventsController, 'store']).as('post.event').use(mid
 
 router.delete('/events', [EventsController, 'destroy']).as('event.destroy').use(middleware.auth())
 
+router.put('/events/:id', [EventsController, 'update']).as('events.update')
+
 // routes test pour debug
 
 router.post('/test', () => {
