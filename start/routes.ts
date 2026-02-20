@@ -15,11 +15,7 @@ import EventsController from '#controllers/events_controller'
 import User from '#models/user'
 
 router.on('/').render('pages/home').as('home')
-router
-  .get('/projets', async ({ view }) => {
-    return view.render('pages/Projets')
-  })
-  .as('Projet')
+router.get('/projets', [ProjectsController, 'index']).as('Projet')
 
 router.get('/events', [EventsController, 'index']).as('events')
 

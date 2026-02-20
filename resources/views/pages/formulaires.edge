@@ -99,6 +99,57 @@
                     class="w-full text-xs file:bg-[#F7941D] file:border-none file:px-4 file:py-2 file:text-[#191256] file:font-black file:italic file:uppercase cursor-pointer"
                   />
                 </div>
+                <!-- NOUVELLE LIGNE : STATUT ET CATÉGORIE -->
+                <div class="grid md:grid-cols-2 gap-6">
+                  <!-- STATUT -->
+                  <div class="space-y-2">
+                    <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Statut du Projet</label>
+                    <select
+                      name="status"
+                      required
+                      class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none transition-all italic text-white appearance-none"
+                    >
+                      <option value="" disabled selected>
+                        Sélectionner le statut
+                      </option>
+                      <option value="APS (Avant projet sommaire)">
+                        APS (Avant projet sommaire)
+                      </option>
+                      <option value="APD (Avant projet détaillé)">
+                        APD (Avant projet détaillé)
+                      </option>
+                    </select>
+                  </div>
+
+                  <!-- CATÉGORIE -->
+                  <div class="space-y-2">
+                    <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Catégorie de Projet</label>
+                    <select
+                      name="category"
+                      required
+                      class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none transition-all italic text-white appearance-none"
+                    >
+                      <option value="" disabled selected>
+                        Sélectionner la catégorie
+                      </option>
+                      <option value="Habitats">
+                        Habitats
+                      </option>
+                      <option value="Equipements publics">
+                        Équipements publics
+                      </option>
+                      <option value="Commerce et bureau">
+                        Commerce et bureau
+                      </option>
+                      <option value="Infrastructure">
+                        Infrastructure
+                      </option>
+                      <option value="Tourisme et hôtellerie">
+                        Tourisme et hôtellerie
+                      </option>
+                    </select>
+                  </div>
+                </div>
               </div>
 
               <div class="space-y-2">
@@ -110,6 +161,16 @@
                   class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none transition-all"
                   placeholder="Détails techniques, vision, défis relevés..."
                 ></textarea>
+              </div>
+
+              <div class="space-y-2">
+                <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Lieu</label>
+                <input
+                  type="text"
+                  name="lieu"
+                  class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none transition-all italic"
+                  placeholder="Ex:Kinshasa , Gombe"
+                />
               </div>
 
               <!-- RESEAUX SOCIAUX -->
@@ -297,4 +358,4 @@
     </script>
   @endslot
 @end
-
+  

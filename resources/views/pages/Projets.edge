@@ -66,51 +66,99 @@
       <section class="px-6 md:px-20">
 
         <!-- SECTION : PUBLICS (Visible par défaut) -->
-        <div id="project-publics" class="project-content block">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
 
-            <!-- Texte descriptif -->
-            <div class="flex flex-col justify-center gap-6">
-              <h2 class="text-3xl md:text-6xl font-black uppercase italic leading-none">
-                Infrastructures <br />                <span class="text-[#F7941D]">Étatiques</span>
-              </h2>
-              <div class="bg-white/5 p-6 md:p-10 rounded-2xl border-l-8 border-[#F7941D]">
-                <p class="text-gray-300 text-lg leading-relaxed italic">
-                  "Conception de bâtiments publics alliant prestige et durabilité. Nos projets étatiques répondent aux normes internationales de sécurité et d'ergonomie pour le service des citoyens."
-                </p>
-                <ul class="mt-8 space-y-2 text-sm font-bold uppercase tracking-tighter text-gray-400">
-                  <li>
-                    <span class="text-[#F7941D]">●</span>Localisation : Kinshasa - RDC
-                  </li>
-                  <li>
-                    <span class="text-[#F7941D]">●</span>Statut : Terminés / En cours
-                  </li>
-                </ul>
+        @each(project in projects)
+
+          <div id="project-publics" class="project-content block mb-[30px]">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+              <!-- Texte descriptif -->
+              <div class="flex flex-col justify-center gap-6">
+                <h2 class="text-3xl md:text-6xl font-black uppercase italic leading-none">
+                  {{ project.name }} <br />                  <span class="text-[#F7941D]">Étatiques</span>
+                </h2>
+                <div class="bg-white/5 p-6 md:p-10 rounded-2xl border-l-8 border-[#F7941D]">
+                  <p class="text-gray-300 text-lg leading-relaxed italic">
+                    {{ project.description }}
+                  </p>
+                  <ul class="mt-8 space-y-2 text-sm font-bold uppercase tracking-tighter text-gray-400">
+                    <li>
+                      <span class="text-[#F7941D]">●</span>Localisation : {{ project.lieu }}
+                    </li>
+                    <li>
+                      <span class="text-[#F7941D]">●</span>Statut : {{ project.status }}
+                    </li>
+                  </ul>
+                </div>
+                <div class="flex gap-[20px] mt-[20px]">
+                  <a
+                    href="{{ project.facebookUrl }}"
+                    target="_blank"
+                    class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
+                  >FB</a>
+                  <a
+                    href=" {{ project.instagramUrl }}"
+                    target="_blank"
+                    class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
+                  >IN</a>
+                  <a
+                    href=" {{ project.youtubeUrl }}"
+                    target="_blank"
+                    class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
+                  >YT</a>
+                  <a
+                    href="{{ project.xUrl }}"
+                    target="_blank"
+                    class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
+                  >X</a>
+                  <a
+                    href="{{ project.tiktokUrl }}"
+                    target="_blank"
+                    class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
+                  >TK</a>
+                </div>
               </div>
-            </div>
-            <!-- Galerie Photos -->
-            <div class="space-y-4">
-              <div class="h-[300px] md:h-[500px] overflow-hidden rounded-2xl border-2 border-white/5">
-                <img src="/resources/images/4065.webp" class="w-full h-full object-cover" alt="Image principale" />
+
+              <!-- Galerie Photos -->
+
+              <div class="space-y-4">
+                {{-- IMAGE PRINCIPALE (La première du tableau) --}}
+                <div class="h-[300px] md:h-[500px] overflow-hidden rounded-2xl border-2 border-white/5">
+                  @if(project.images && project.images.length > 0)
+                    <img
+                      src="{{ project.images[0].url }}"
+                      class="w-full h-full object-cover"
+                      alt="Image principale - {{ project.name }}"
+                    />
+                  @else
+                    {{-- Placeholder si aucune image --}}
+                    <div class="w-full h-full bg-gray-800 flex items-center justify-center">
+                      <span class="text-gray-500">Aucune image disponible</span>
+                    </div>
+                  @endif
+                </div>
+
+                {{-- GRILLE DES MINIATURES (On commence à partir de la 2ème image) --}}
+                <div class="grid grid-cols-3 gap-4">
+                  @each((image, index) in project.images)
+                    {{-- On ignore la première image car elle est déjà en grand --}}
+                    @if(index > 0 && index <= 3)
+                      <img
+                        src="{{ image.url }}"
+                        class="rounded-xl h-24 w-full object-cover opacity-60 hover:opacity-100 cursor-pointer transition-all border border-white/10"
+                        alt="Miniature {{ index }}"
+                      />
+                    @end
+                  @endeach
+                </div>
               </div>
-              <div class="grid grid-cols-3 gap-4">
-                <img
-                  src="/resources/images/4065.webp"
-                  class="rounded-xl h-24 w-full object-cover opacity-60 hover:opacity-100 cursor-pointer transition-all"
-                />
-                <img
-                  src="/resources/images/4065.webp"
-                  class="rounded-xl h-24 w-full object-cover opacity-60 hover:opacity-100 cursor-pointer transition-all"
-                />
-                <img
-                  src="/resources/images/4065.webp"
-                  class="rounded-xl h-24 w-full object-cover opacity-60 hover:opacity-100 cursor-pointer transition-all"
-                />
-              </div>
+
             </div>
           </div>
-        </div>
 
+        @endeach
+        
+        
         <!-- SECTION : PRIVÉS (Cachée par défaut) -->
         <div id="project-prives" class="project-content hidden">
           <div class="py-20 text-center border-2 border-dashed border-white/10 rounded-2xl">

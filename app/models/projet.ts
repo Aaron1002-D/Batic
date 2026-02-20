@@ -15,6 +15,15 @@ export default class Project extends BaseModel {
   @column()
   declare description: string
 
+  @column()
+  declare lieu: string
+
+  @column()
+  declare category: string
+
+  @column()
+  declare status: string
+
   // Réseaux sociaux
   @column()
   declare facebookUrl: string | null
@@ -41,7 +50,7 @@ export default class Project extends BaseModel {
 
   /** 📸 Un event peut avoir plusieurs photos */
   @hasMany(() => Image)
-  declare medias: HasMany<typeof Image>
+  declare images: HasMany<typeof Image>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

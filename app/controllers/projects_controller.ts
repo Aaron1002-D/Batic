@@ -5,6 +5,16 @@ import { cuid } from '@adonisjs/core/helpers'
 import app from '@adonisjs/core/services/app'
 
 export default class ProjectsController {
+  async index({ view, auth }: HttpContext) {
+    await auth.check()
+    const projects = await Project.query().preload('images').orderBy('created_at', 'desc')
+
+    const user = auth.user
+
+    console.log(projects)
+
+    return view.render('pages/Projets', { projects, user })
+  }
   async store({ request, response, auth, session }: HttpContext) {
     const user = auth.user
     if (!user) {
@@ -15,6 +25,9 @@ export default class ProjectsController {
     const data = request.only([
       'name',
       'description',
+      'lieu',
+      'category',
+      'status',
       'facebookUrl',
       'youtubeUrl',
       'instagramUrl',
