@@ -164,7 +164,7 @@
                 Modifier l'Événement
               </h3>
 
-              <form id="editForm" class="space-y-8" action="{{ route('events.update') }}?_method=PUT" method="post">
+              <form id="editForm" class="space-y-8" action="" method="post">
                 {{ csrfField() }}
                 <div class="grid md:grid-cols-2 gap-6">
                   <div class="space-y-2">
@@ -334,7 +334,7 @@
         document.getElementById("editYoutube").value = eventData.youtubeUrl || "";
         document.getElementById("editTiktok").value = eventData.tiktokUrl || "";
         document.getElementById("editX").value = eventData.xUrl || "";
-        form.action = `/events/${eventData.id}`;
+        form.action = `/events/${eventData.id}?_method=PUT`;
         modal.classList.remove("hidden");
         document.body.classList.add("overflow-hidden");
       }
