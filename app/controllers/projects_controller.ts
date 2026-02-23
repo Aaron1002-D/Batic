@@ -82,7 +82,69 @@ export default class ProjectsController {
     }
   }
 
-  async update({}: HttpContext) {}
+  async update({ request, response, auth, params }: HttpContext) {
+    await auth.check()
+
+    const user = auth.user
+
+    if (!user) {
+      return response.unauthorized("seul l'admin peut modifier un event")
+    }
+
+    const projet = await Project.findOrFail(params.id)
+
+    const data = request.only([
+      'name',
+      'description',
+      'lieu',
+      'status',
+      'category',
+      'facebookUrl',
+      'youtubeUrl',
+      'instagramUrl',
+      'xUrl',
+      'tiktokUrl',
+    ])
+
+    projet.merge(data)
+
+    await projet.save()
+
+    return response.redirect().back()
+  }
+
+  async destroy({ request, response, auth }: HttpContext) {
+    await auth.check()
+
+    const user = auth.user
+
+    if (!user) {
+      return response.unauthorized('utilisateur non authenfié')
+    }
+
+    const projetId = request.input('project_id')
+
+    console.log('ID event à supprimer (depuis input caché):', projetId)
+
+    if (!projetId) {
+      return response.badRequest("l'id de l'event est manquant")
+    }
+
+    try {
+      const projet = await Project.findOrFail(projetId)
+
+      await projet.related('images').query().delete()
+
+      await projet.delete()
+
+      return response.redirect().toRoute('Projet')
+    } catch (error) {
+      console.error('Erreur lors de la suppression du event:', error)
+      return response.internalServerError(
+        'Une erreur est survenue lors de la suppression du event.'
+      )
+    }
+  }
 
   //   async store({ request, response, auth, session }: HttpContext) {
   //     const user = auth.user

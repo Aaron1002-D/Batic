@@ -57,7 +57,9 @@ router.post('/logout', [AuthController, 'logout']).as('auth.logout')
 
 router.post('/post-projet', [ProjectsController, 'store']).as('post.projet').use(middleware.auth())
 
-router.put('/projets/:id', [ProjectsController, 'update']).as('events.update')
+router.put('/projets/:id', [ProjectsController, 'update']).as('project.update')
+
+router.delete('/projets/', [ProjectsController, 'destroy']).as('project.delete')
 
 // routes pour traiter un evenement
 

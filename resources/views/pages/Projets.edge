@@ -124,6 +124,26 @@
                   </button>
                 @endif
                 
+                @if(user)
+                  <form action=" {{ route('project.delete') }}?_method=DELETE" method="post" class="mt-[50px]">
+                    {{ csrfField() }}
+                    {{-- Champ caché pour l'ID du projet --}}
+                    <input type="hidden" name="project_id" value="{{ project.id }}" />
+
+                    <button
+                      type="submit"
+                      onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')"
+                      class="group flex items-center gap-2 text-white/60 hover:text-red-500 transition-colors"
+                    >
+                      <span class="text-[10px] font-mono uppercase tracking-widest">Supprimer le projet</span>
+
+                      {{-- La petite ligne décorative --}}
+                      <div class="w-8 h-[1px] bg-white/20 group-hover:bg-red-500 transition-all">
+                      </div>
+                    </button>
+                  </form>
+                @endif
+                
                 {{--  @if(user)
                   <form action="{{ route('') }}?_method=DELETE" method="post" class="mt-[50px]">
                     {{ csrfField() }}
