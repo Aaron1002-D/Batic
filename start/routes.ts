@@ -53,9 +53,11 @@ router.post('/connect', [AuthController, 'handleconnexion']).as('auth.connexion'
 
 router.post('/logout', [AuthController, 'logout']).as('auth.logout')
 
-// routes pour poster un porjet
+// routes pour traiter un porjet
 
 router.post('/post-projet', [ProjectsController, 'store']).as('post.projet').use(middleware.auth())
+
+router.put('/projets/:id', [ProjectsController, 'update']).as('events.update')
 
 // routes pour traiter un evenement
 

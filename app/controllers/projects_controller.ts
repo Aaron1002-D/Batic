@@ -82,6 +82,8 @@ export default class ProjectsController {
     }
   }
 
+  async update({}: HttpContext) {}
+
   //   async store({ request, response, auth, session }: HttpContext) {
   //     const user = auth.user
   //     if (!user) return response.unauthorized('utilisateur non identifié')

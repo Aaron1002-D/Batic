@@ -117,6 +117,31 @@
                     class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
                   >TK</a>
                 </div>
+
+                @if(user)
+                  <button onclick="openEditProjectModal({{ JSON.stringify(project) }})" class="text-white hover:underline">
+                    Modifier
+                  </button>
+                @endif
+                
+                {{--  @if(user)
+                  <form action="{{ route('') }}?_method=DELETE" method="post" class="mt-[50px]">
+                    {{ csrfField() }}
+                
+                <button
+                      type="submit"
+                      onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce tweet ?')"
+                      class="group flex items-center gap-2 text-white/60 hover:text-red-500 transition-colors"
+                    >
+                      <input type="" name="" value="{{ }}" />
+                
+                      <span class="text-[10px] font-mono uppercase tracking-widest">Supprimer</span>
+                      <div class="w-8 h-[1px] bg-white/20 group-hover:bg-red-500">
+                      </div>
+                    </button>
+                
+                  </form>
+                @endif  --}}
               </div>
 
               <!-- Galerie Photos -->
@@ -155,7 +180,171 @@
 
             </div>
           </div>
+          <!-- Modal de modification de Projet -->
+          <div
+            id="editProjectModal"
+            class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 pt-[100px] overflow-y-auto"
+          >
+            <!-- Overlay -->
+            <div onclick="closeEditProjectModal()" class="absolute inset-0">
+            </div>
 
+            <!-- Contenu -->
+            <div
+              class="relative w-full max-w-4xl bg-[#191256] border border-white/10 p-10 animate-in fade-in duration-300 my-10"
+            >
+
+              <!-- Bouton Fermer -->
+              <button
+                type="button"
+                onclick="closeEditProjectModal()"
+                class="absolute top-5 right-6 text-white/40 hover:text-[#F7941D] transition-colors text-xl font-bold"
+              >
+                ×
+    </button>
+
+              <h3 class="text-[#F7941D] font-mono text-xs tracking-[0.4em] uppercase mb-8">
+                Modifier le Projet
+              </h3>
+
+              <form id="editProjectForm" class="space-y-8" action="" method="POST">
+                {{ csrfField() }}
+      <input type="hidden" name="project_id" id="editProjectId" />
+
+                <div class="grid md:grid-cols-2 gap-6">
+                  <!-- NOM -->
+                  <div class="space-y-2">
+                    <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Nom du Projet</label>
+                    <input
+                      type="text"
+                      name="name"
+                      id="editProjectName"
+                      required
+                      class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none italic text-white"
+                    />
+                  </div>
+
+                  <!-- PHOTOS INFO -->
+                  <div class="space-y-2">
+                    <label class="text-[10px] font-mono uppercase tracking-widest text-white/40">Photos (Non modifiables)</label>
+                    <div class="w-full bg-white/5 border border-white/10 p-3 text-xs text-white/40 italic">
+                      Supprimez et recréez le projet pour changer les images.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- STATUT & CATÉGORIE -->
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div class="space-y-2">
+                    <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Statut du Projet</label>
+                    <select
+                      name="status"
+                      id="editProjectStatus"
+                      required
+                      class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none italic text-white appearance-none"
+                    >
+                      <option value="APS">
+                        APS (Avant projet sommaire)
+                      </option>
+                      <option value="APD">
+                        APD (Avant projet détaillé)
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="space-y-2">
+                    <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Catégorie</label>
+                    <select
+                      name="category"
+                      id="editProjectCategory"
+                      required
+                      class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none italic text-white appearance-none"
+                    >
+                      <option value="Habitats">
+                        Habitats
+                      </option>
+                      <option value="Equipements publics">
+                        Équipements publics
+                      </option>
+                      <option value="Commerce et bureau">
+                        Commerce et bureau
+                      </option>
+                      <option value="Infrastructure">
+                        Infrastructure
+                      </option>
+                      <option value="Tourisme et hôtellerie">
+                        Tourisme et hôtellerie
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- DESCRIPTION -->
+                <div class="space-y-2">
+                  <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Description</label>
+                  <textarea
+                    name="description"
+                    id="editProjectDescription"
+                    rows="4"
+                    required
+                    class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none text-white"
+                  ></textarea>
+                </div>
+
+                <!-- LIEU -->
+                <div class="space-y-2">
+                  <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Lieu</label>
+                  <input
+                    type="text"
+                    name="lieu"
+                    id="editProjectLieu"
+                    class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none italic text-white"
+                  />
+                </div>
+
+                <!-- RÉSEAUX SOCIAUX -->
+                <div class="pt-6 border-t border-white/10">
+                  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <input
+                      type="url"
+                      name="facebookUrl"
+                      id="editProjectFacebook"
+                      placeholder="Facebook"
+                      class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D] text-white"
+                    />
+                    <input
+                      type="url"
+                      name="instagramUrl"
+                      id="editProjectInstagram"
+                      placeholder="Instagram"
+                      class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D] text-white"
+                    />
+                    <input
+                      type="url"
+                      name="youtubeUrl"
+                      id="editProjectYoutube"
+                      placeholder="YouTube"
+                      class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D] text-white"
+                    />
+                    <input
+                      type="url"
+                      name="tiktokUrl"
+                      id="editProjectTiktok"
+                      placeholder="TikTok"
+                      class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D] text-white"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  class="w-full bg-white text-[#191256] font-black uppercase italic py-4 hover:bg-[#F7941D] transition-all transform hover:-translate-y-1"
+                >
+                  Mettre à jour le Projet
+      </button>
+              </form>
+            </div>
+          </div>
         @endeach
         
         
@@ -189,5 +378,36 @@
       @!component('components/footer')
 
     </main>
+
+    <script>
+      function openEditProjectModal(project) {
+        const modal = document.getElementById("editProjectModal");
+        const form = document.getElementById("editProjectForm");
+        // 1. Définir l'action du formulaire (ajustez l'URL selon votre route Adonis)
+        form.action = `/projets/${project.id}?_method=PUT`;
+        // 2. Remplir les champs
+        document.getElementById("editProjectId").value = project.id;
+        document.getElementById("editProjectName").value = project.name || "";
+        document.getElementById("editProjectDescription").value = project.description || "";
+        document.getElementById("editProjectLieu").value = project.lieu || "";
+        // Remplir les Selects
+        document.getElementById("editProjectStatus").value = project.status || "";
+        document.getElementById("editProjectCategory").value = project.category || "";
+        // Remplir les réseaux sociaux
+        document.getElementById("editProjectFacebook").value = project.facebookUrl || "";
+        document.getElementById("editProjectInstagram").value = project.instagramUrl || "";
+        document.getElementById("editProjectYoutube").value = project.youtubeUrl || "";
+        document.getElementById("editProjectTiktok").value = project.tiktokUrl || "";
+        // 3. Afficher le modal
+        modal.classList.remove("hidden");
+        document.body.style.overflow = "hidden"; // Empêche le scroll en arrière-plan
+      }
+
+      function closeEditProjectModal() {
+        const modal = document.getElementById("editProjectModal");
+        modal.classList.add("hidden");
+        document.body.style.overflow = "auto";
+      }
+    </script>
   @endslot
 @end
