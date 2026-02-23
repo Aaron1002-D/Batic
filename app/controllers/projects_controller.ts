@@ -11,7 +11,7 @@ export default class ProjectsController {
 
     const user = auth.user
 
-    console.log(projects)
+    console.log(projects.forEach((p) => console.log(p.category)))
 
     return view.render('pages/Projets', { projects, user })
   }

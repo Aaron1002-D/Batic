@@ -21,43 +21,43 @@
         <ul class="flex flex-wrap gap-4 md:gap-10 border-b border-white/10 pb-4">
           <li>
             <button
-              data-target="publics"
+              data-target="Habitats"
               class="project-btn text-[#F7941D] border-b-2 border-[#F7941D] pb-4 font-bold uppercase tracking-widest transition-all"
             >
-              Publics
-            </button>
+              Habitats
+      </button>
           </li>
           <li>
             <button
-              data-target="prives"
+              data-target="Equipements publics"
               class="project-btn text-gray-400 hover:text-white pb-4 font-bold uppercase tracking-widest transition-all"
             >
-              Privés
-            </button>
+              Équipements publics
+      </button>
           </li>
           <li>
             <button
-              data-target="hospitalite"
+              data-target="Commerce et bureau"
               class="project-btn text-gray-400 hover:text-white pb-4 font-bold uppercase tracking-widest transition-all"
             >
-              Hospitalité
-            </button>
+              Commerce et bureau
+      </button>
           </li>
           <li>
             <button
-              data-target="academique"
+              data-target="Infrastructure"
               class="project-btn text-gray-400 hover:text-white pb-4 font-bold uppercase tracking-widest transition-all"
             >
-              Académique
-            </button>
+              Infrastructure
+      </button>
           </li>
           <li>
             <button
-              data-target="videos"
+              data-target="Tourisme et hôtellerie"
               class="project-btn text-gray-400 hover:text-white pb-4 font-bold uppercase tracking-widest transition-all"
             >
-              Vidéos
-            </button>
+              Tourisme et hôtellerie
+      </button>
           </li>
         </ul>
       </nav>
@@ -69,82 +69,88 @@
 
         @each(project in projects)
 
-          <div id="project-publics" class="project-content block mb-[30px]">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div
+            id="project-publics"
+            class="project-card project-content block mb-[30px]"
+            data-category="{{ project.category }}"
+          >
+          </div>
 
-              <!-- Texte descriptif -->
-              <div class="flex flex-col justify-center gap-6">
-                <h2 class="text-3xl md:text-6xl font-black uppercase italic leading-none">
-                  {{ project.name }} <br />                  <span class="text-[#F7941D]">Étatiques</span>
-                </h2>
-                <div class="bg-white/5 p-6 md:p-10 rounded-2xl border-l-8 border-[#F7941D]">
-                  <p class="text-gray-300 text-lg leading-relaxed italic">
-                    {{ project.description }}
-                  </p>
-                  <ul class="mt-8 space-y-2 text-sm font-bold uppercase tracking-tighter text-gray-400">
-                    <li>
-                      <span class="text-[#F7941D]">●</span>Localisation : {{ project.lieu }}
-                    </li>
-                    <li>
-                      <span class="text-[#F7941D]">●</span>Statut : {{ project.status }}
-                    </li>
-                  </ul>
-                </div>
-                <div class="flex gap-[20px] mt-[20px]">
-                  <a
-                    href="{{ project.facebookUrl }}"
-                    target="_blank"
-                    class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
-                  >FB</a>
-                  <a
-                    href=" {{ project.instagramUrl }}"
-                    target="_blank"
-                    class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
-                  >IN</a>
-                  <a
-                    href=" {{ project.youtubeUrl }}"
-                    target="_blank"
-                    class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
-                  >YT</a>
-                  <a
-                    href="{{ project.xUrl }}"
-                    target="_blank"
-                    class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
-                  >X</a>
-                  <a
-                    href="{{ project.tiktokUrl }}"
-                    target="_blank"
-                    class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
-                  >TK</a>
-                </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
 
-                @if(user)
-                  <button onclick="openEditProjectModal({{ JSON.stringify(project) }})" class="text-white hover:underline">
-                    Modifier
+            <!-- Texte descriptif -->
+            <div class="flex flex-col justify-center gap-6">
+              <h2 class="text-3xl md:text-6xl font-black uppercase italic leading-none">
+                {{ project.name }} <br />                <span class="text-[#F7941D]">Étatiques</span>
+              </h2>
+              <div class="bg-white/5 p-6 md:p-10 rounded-2xl border-l-8 border-[#F7941D]">
+                <p class="text-gray-300 text-lg leading-relaxed italic">
+                  {{ project.description }}
+                </p>
+                <ul class="mt-8 space-y-2 text-sm font-bold uppercase tracking-tighter text-gray-400">
+                  <li>
+                    <span class="text-[#F7941D]">●</span>Localisation : {{ project.lieu }}
+                  </li>
+                  <li>
+                    <span class="text-[#F7941D]">●</span>Statut : {{ project.status }}
+                  </li>
+                </ul>
+              </div>
+              <div class="flex gap-[20px] mt-[20px]">
+                <a
+                  href="{{ project.facebookUrl }}"
+                  target="_blank"
+                  class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
+                >FB</a>
+                <a
+                  href=" {{ project.instagramUrl }}"
+                  target="_blank"
+                  class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
+                >IN</a>
+                <a
+                  href=" {{ project.youtubeUrl }}"
+                  target="_blank"
+                  class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
+                >YT</a>
+                <a
+                  href="{{ project.xUrl }}"
+                  target="_blank"
+                  class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
+                >X</a>
+                <a
+                  href="{{ project.tiktokUrl }}"
+                  target="_blank"
+                  class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-full hover:bg-[#F7941D] hover:text-[#191256] transition-all font-bold text-sm"
+                >TK</a>
+              </div>
+
+              @if(user)
+                <button onclick="openEditProjectModal({{ JSON.stringify(project) }})" class="text-white hover:underline">
+                  Modifier
                   </button>
-                @endif
+              @endif
                 
-                @if(user)
-                  <form action=" {{ route('project.delete') }}?_method=DELETE" method="post" class="mt-[50px]">
-                    {{ csrfField() }}
-                    {{-- Champ caché pour l'ID du projet --}}
-                    <input type="hidden" name="project_id" value="{{ project.id }}" />
+              @if(user)
+                <form action=" {{ route('project.delete') }}?_method=DELETE" method="post" class="mt-[50px]">
+                  {{ csrfField() }}
+                  {{-- Champ caché pour l'ID du projet --}}
+                  <input type="hidden" name="project_id" value="{{ project.id }}" />
 
-                    <button
-                      type="submit"
-                      onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')"
-                      class="group flex items-center gap-2 text-white/60 hover:text-red-500 transition-colors"
-                    >
-                      <span class="text-[10px] font-mono uppercase tracking-widest">Supprimer le projet</span>
+                  <button
+                    type="submit"
+                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')"
+                    class="group flex items-center gap-2 text-white/60 hover:text-red-500 transition-colors"
+                  >
+                    <span class="text-[10px] font-mono uppercase tracking-widest">Supprimer le projet</span>
 
-                      {{-- La petite ligne décorative --}}
-                      <div class="w-8 h-[1px] bg-white/20 group-hover:bg-red-500 transition-all">
-                      </div>
-                    </button>
-                  </form>
-                @endif
+                    {{-- La petite ligne décorative --}}
+                    <div class="w-8 h-[1px] bg-white/20 group-hover:bg-red-500 transition-all">
+                    </div>
+                  </button>
+                </form>
+              @endif
                 
-                {{--  @if(user)
+              {{--  @if(user)
                   <form action="{{ route('') }}?_method=DELETE" method="post" class="mt-[50px]">
                     {{ csrfField() }}
                 
@@ -161,273 +167,315 @@
                     </button>
                 
                   </form>
-                @endif  --}}
+              @endif  --}}
+            </div>
+
+            <!-- Galerie Photos -->
+
+            <div class="space-y-4">
+              {{-- IMAGE PRINCIPALE (La première du tableau) --}}
+              <div class="h-[300px] md:h-[500px] overflow-hidden rounded-2xl border-2 border-white/5">
+                @if(project.images && project.images.length > 0)
+                  <img
+                    src="{{ project.images[0].url }}"
+                    class="w-full h-full object-cover"
+                    alt="Image principale - {{ project.name }}"
+                  />
+                @else
+                  {{-- Placeholder si aucune image --}}
+                  <div class="w-full h-full bg-gray-800 flex items-center justify-center">
+                    <span class="text-gray-500">Aucune image disponible</span>
+                  </div>
+                @endif
               </div>
 
-              <!-- Galerie Photos -->
-
-              <div class="space-y-4">
-                {{-- IMAGE PRINCIPALE (La première du tableau) --}}
-                <div class="h-[300px] md:h-[500px] overflow-hidden rounded-2xl border-2 border-white/5">
-                  @if(project.images && project.images.length > 0)
+              {{-- GRILLE DES MINIATURES (On commence à partir de la 2ème image) --}}
+              <div class="grid grid-cols-3 gap-4">
+                @each((image, index) in project.images)
+                  {{-- On ignore la première image car elle est déjà en grand --}}
+                  @if(index > 0 && index <= 3)
                     <img
-                      src="{{ project.images[0].url }}"
-                      class="w-full h-full object-cover"
-                      alt="Image principale - {{ project.name }}"
+                      src="{{ image.url }}"
+                      class="rounded-xl h-24 w-full object-cover opacity-60 hover:opacity-100 cursor-pointer transition-all border border-white/10"
+                      alt="Miniature {{ index }}"
                     />
-                  @else
-                    {{-- Placeholder si aucune image --}}
-                    <div class="w-full h-full bg-gray-800 flex items-center justify-center">
-                      <span class="text-gray-500">Aucune image disponible</span>
-                    </div>
-                  @endif
-                </div>
-
-                {{-- GRILLE DES MINIATURES (On commence à partir de la 2ème image) --}}
-                <div class="grid grid-cols-3 gap-4">
-                  @each((image, index) in project.images)
-                    {{-- On ignore la première image car elle est déjà en grand --}}
-                    @if(index > 0 && index <= 3)
-                      <img
-                        src="{{ image.url }}"
-                        class="rounded-xl h-24 w-full object-cover opacity-60 hover:opacity-100 cursor-pointer transition-all border border-white/10"
-                        alt="Miniature {{ index }}"
-                      />
-                    @end
-                  @endeach
-                </div>
+                  @end
+                @endeach
               </div>
-
             </div>
+
           </div>
-          <!-- Modal de modification de Projet -->
+        </div>
+        <!-- Modal de modification de Projet -->
+        <div
+          id="editProjectModal"
+          class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 pt-[100px] overflow-y-auto"
+        >
+          <!-- Overlay -->
+          <div onclick="closeEditProjectModal()" class="absolute inset-0">
+          </div>
+
+          <!-- Contenu -->
           <div
-            id="editProjectModal"
-            class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 pt-[100px] overflow-y-auto"
+            class="relative w-full max-w-4xl bg-[#191256] border border-white/10 p-10 animate-in fade-in duration-300 my-10"
           >
-            <!-- Overlay -->
-            <div onclick="closeEditProjectModal()" class="absolute inset-0">
-            </div>
 
-            <!-- Contenu -->
-            <div
-              class="relative w-full max-w-4xl bg-[#191256] border border-white/10 p-10 animate-in fade-in duration-300 my-10"
+            <!-- Bouton Fermer -->
+            <button
+              type="button"
+              onclick="closeEditProjectModal()"
+              class="absolute top-5 right-6 text-white/40 hover:text-[#F7941D] transition-colors text-xl font-bold"
             >
-
-              <!-- Bouton Fermer -->
-              <button
-                type="button"
-                onclick="closeEditProjectModal()"
-                class="absolute top-5 right-6 text-white/40 hover:text-[#F7941D] transition-colors text-xl font-bold"
-              >
-                ×
+              ×
     </button>
 
-              <h3 class="text-[#F7941D] font-mono text-xs tracking-[0.4em] uppercase mb-8">
-                Modifier le Projet
-              </h3>
+            <h3 class="text-[#F7941D] font-mono text-xs tracking-[0.4em] uppercase mb-8">
+              Modifier le Projet
+            </h3>
 
-              <form id="editProjectForm" class="space-y-8" action="" method="POST">
-                {{ csrfField() }}
+            <form id="editProjectForm" class="space-y-8" action="" method="POST">
+              {{ csrfField() }}
       <input type="hidden" name="project_id" id="editProjectId" />
 
-                <div class="grid md:grid-cols-2 gap-6">
-                  <!-- NOM -->
-                  <div class="space-y-2">
-                    <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Nom du Projet</label>
-                    <input
-                      type="text"
-                      name="name"
-                      id="editProjectName"
-                      required
-                      class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none italic text-white"
-                    />
-                  </div>
-
-                  <!-- PHOTOS INFO -->
-                  <div class="space-y-2">
-                    <label class="text-[10px] font-mono uppercase tracking-widest text-white/40">Photos (Non modifiables)</label>
-                    <div class="w-full bg-white/5 border border-white/10 p-3 text-xs text-white/40 italic">
-                      Supprimez et recréez le projet pour changer les images.
-                    </div>
-                  </div>
-                </div>
-
-                <!-- STATUT & CATÉGORIE -->
-                <div class="grid md:grid-cols-2 gap-6">
-                  <div class="space-y-2">
-                    <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Statut du Projet</label>
-                    <select
-                      name="status"
-                      id="editProjectStatus"
-                      required
-                      class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none italic text-white appearance-none"
-                    >
-                      <option value="APS">
-                        APS (Avant projet sommaire)
-                      </option>
-                      <option value="APD">
-                        APD (Avant projet détaillé)
-                      </option>
-                    </select>
-                  </div>
-
-                  <div class="space-y-2">
-                    <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Catégorie</label>
-                    <select
-                      name="category"
-                      id="editProjectCategory"
-                      required
-                      class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none italic text-white appearance-none"
-                    >
-                      <option value="Habitats">
-                        Habitats
-                      </option>
-                      <option value="Equipements publics">
-                        Équipements publics
-                      </option>
-                      <option value="Commerce et bureau">
-                        Commerce et bureau
-                      </option>
-                      <option value="Infrastructure">
-                        Infrastructure
-                      </option>
-                      <option value="Tourisme et hôtellerie">
-                        Tourisme et hôtellerie
-                      </option>
-                    </select>
-                  </div>
-                </div>
-
-                <!-- DESCRIPTION -->
+              <div class="grid md:grid-cols-2 gap-6">
+                <!-- NOM -->
                 <div class="space-y-2">
-                  <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Description</label>
-                  <textarea
-                    name="description"
-                    id="editProjectDescription"
-                    rows="4"
-                    required
-                    class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none text-white"
-                  ></textarea>
-                </div>
-
-                <!-- LIEU -->
-                <div class="space-y-2">
-                  <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Lieu</label>
+                  <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Nom du Projet</label>
                   <input
                     type="text"
-                    name="lieu"
-                    id="editProjectLieu"
+                    name="name"
+                    id="editProjectName"
+                    required
                     class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none italic text-white"
                   />
                 </div>
 
-                <!-- RÉSEAUX SOCIAUX -->
-                <div class="pt-6 border-t border-white/10">
-                  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <input
-                      type="url"
-                      name="facebookUrl"
-                      id="editProjectFacebook"
-                      placeholder="Facebook"
-                      class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D] text-white"
-                    />
-                    <input
-                      type="url"
-                      name="instagramUrl"
-                      id="editProjectInstagram"
-                      placeholder="Instagram"
-                      class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D] text-white"
-                    />
-                    <input
-                      type="url"
-                      name="youtubeUrl"
-                      id="editProjectYoutube"
-                      placeholder="YouTube"
-                      class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D] text-white"
-                    />
-                    <input
-                      type="url"
-                      name="tiktokUrl"
-                      id="editProjectTiktok"
-                      placeholder="TikTok"
-                      class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D] text-white"
-                    />
+                <!-- PHOTOS INFO -->
+                <div class="space-y-2">
+                  <label class="text-[10px] font-mono uppercase tracking-widest text-white/40">Photos (Non modifiables)</label>
+                  <div class="w-full bg-white/5 border border-white/10 p-3 text-xs text-white/40 italic">
+                    Supprimez et recréez le projet pour changer les images.
                   </div>
                 </div>
+              </div>
 
-                <button
-                  type="submit"
-                  class="w-full bg-white text-[#191256] font-black uppercase italic py-4 hover:bg-[#F7941D] transition-all transform hover:-translate-y-1"
-                >
-                  Mettre à jour le Projet
+              <!-- STATUT & CATÉGORIE -->
+              <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Statut du Projet</label>
+                  <select
+                    name="status"
+                    id="editProjectStatus"
+                    required
+                    class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none italic text-white appearance-none"
+                  >
+                    <option value="APS">
+                      APS (Avant projet sommaire)
+                    </option>
+                    <option value="APD">
+                      APD (Avant projet détaillé)
+                    </option>
+                  </select>
+                </div>
+
+                <div class="space-y-2">
+                  <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Catégorie</label>
+                  <select
+                    name="category"
+                    id="editProjectCategory"
+                    required
+                    class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none italic text-white appearance-none"
+                  >
+                    <option value="Habitats">
+                      Habitats
+                    </option>
+                    <option value="Equipements publics">
+                      Équipements publics
+                    </option>
+                    <option value="Commerce et bureau">
+                      Commerce et bureau
+                    </option>
+                    <option value="Infrastructure">
+                      Infrastructure
+                    </option>
+                    <option value="Tourisme et hôtellerie">
+                      Tourisme et hôtellerie
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- DESCRIPTION -->
+              <div class="space-y-2">
+                <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Description</label>
+                <textarea
+                  name="description"
+                  id="editProjectDescription"
+                  rows="4"
+                  required
+                  class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none text-white"
+                ></textarea>
+              </div>
+
+              <!-- LIEU -->
+              <div class="space-y-2">
+                <label class="text-[10px] font-mono uppercase tracking-widest text-[#F7941D]">Lieu</label>
+                <input
+                  type="text"
+                  name="lieu"
+                  id="editProjectLieu"
+                  class="w-full bg-[#191256] border-b border-white/20 p-3 focus:border-[#F7941D] outline-none italic text-white"
+                />
+              </div>
+
+              <!-- RÉSEAUX SOCIAUX -->
+              <div class="pt-6 border-t border-white/10">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <input
+                    type="url"
+                    name="facebookUrl"
+                    id="editProjectFacebook"
+                    placeholder="Facebook"
+                    class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D] text-white"
+                  />
+                  <input
+                    type="url"
+                    name="instagramUrl"
+                    id="editProjectInstagram"
+                    placeholder="Instagram"
+                    class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D] text-white"
+                  />
+                  <input
+                    type="url"
+                    name="youtubeUrl"
+                    id="editProjectYoutube"
+                    placeholder="YouTube"
+                    class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D] text-white"
+                  />
+                  <input
+                    type="url"
+                    name="tiktokUrl"
+                    id="editProjectTiktok"
+                    placeholder="TikTok"
+                    class="bg-transparent border-l-2 border-white/20 p-2 text-xs outline-none focus:border-[#F7941D] text-white"
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                class="w-full bg-white text-[#191256] font-black uppercase italic py-4 hover:bg-[#F7941D] transition-all transform hover:-translate-y-1"
+              >
+                Mettre à jour le Projet
       </button>
-              </form>
-            </div>
+            </form>
           </div>
-        @endeach
+        </div>
+      @endeach
         
         
-        <!-- SECTION : PRIVÉS (Cachée par défaut) -->
-        <div id="project-prives" class="project-content hidden">
-          <div class="py-20 text-center border-2 border-dashed border-white/10 rounded-2xl">
-            <h2 class="text-2xl font-bold opacity-50 uppercase">
-              Projets Privés en cours de sélection...
-            </h2>
-          </div>
+      <!-- SECTION : PRIVÉS (Cachée par défaut) -->
+      <div id="project-prives" class="project-content hidden">
+        <div class="py-20 text-center border-2 border-dashed border-white/10 rounded-2xl">
+          <h2 class="text-2xl font-bold opacity-50 uppercase">
+            Projets Privés en cours de sélection...
+          </h2>
         </div>
+      </div>
 
-        <!-- SECTION : HOSPITALITÉ (Cachée par défaut) -->
-        <div id="project-hospitalite" class="project-content hidden">
-          <!-- Même structure que Publics ici -->
+      <!-- SECTION : HOSPITALITÉ (Cachée par défaut) -->
+      <div id="project-hospitalite" class="project-content hidden">
+        <!-- Même structure que Publics ici -->
+      </div>
+
+      <!-- SECTION : ACADÉMIQUE (Cachée par défaut) -->
+      <div id="project-academique" class="project-content hidden">
+        <!-- Même structure que Publics ici -->
+      </div>
+
+      <!-- SECTION : VIDEOS (Cachée par défaut) -->
+      <div id="project-videos" class="project-content hidden">
+        <div class="aspect-video w-full bg-black rounded-2xl flex items-center justify-center">
+          <span class="text-[#F7941D] font-bold">LECTEUR VIDÉO BATIC</span>
         </div>
+      </div>
 
-        <!-- SECTION : ACADÉMIQUE (Cachée par défaut) -->
-        <div id="project-academique" class="project-content hidden">
-          <!-- Même structure que Publics ici -->
-        </div>
+    </section>
+    @!component('components/footer')
 
-        <!-- SECTION : VIDEOS (Cachée par défaut) -->
-        <div id="project-videos" class="project-content hidden">
-          <div class="aspect-video w-full bg-black rounded-2xl flex items-center justify-center">
-            <span class="text-[#F7941D] font-bold">LECTEUR VIDÉO BATIC</span>
-          </div>
-        </div>
+  </main>
 
-      </section>
-      @!component('components/footer')
+  <script>
+    function openEditProjectModal(project) {
+      const modal = document.getElementById("editProjectModal");
+      const form = document.getElementById("editProjectForm");
+      // 1. Définir l'action du formulaire (ajustez l'URL selon votre route Adonis)
+      form.action = `/projets/${project.id}?_method=PUT`;
+      // 2. Remplir les champs
+      document.getElementById("editProjectId").value = project.id;
+      document.getElementById("editProjectName").value = project.name || "";
+      document.getElementById("editProjectDescription").value = project.description || "";
+      document.getElementById("editProjectLieu").value = project.lieu || "";
+      // Remplir les Selects
+      document.getElementById("editProjectStatus").value = project.status || "";
+      document.getElementById("editProjectCategory").value = project.category || "";
+      // Remplir les réseaux sociaux
+      document.getElementById("editProjectFacebook").value = project.facebookUrl || "";
+      document.getElementById("editProjectInstagram").value = project.instagramUrl || "";
+      document.getElementById("editProjectYoutube").value = project.youtubeUrl || "";
+      document.getElementById("editProjectTiktok").value = project.tiktokUrl || "";
+      // 3. Afficher le modal
+      modal.classList.remove("hidden");
+      document.body.style.overflow = "hidden"; // Empêche le scroll en arrière-plan
+    }
 
-    </main>
+    function closeEditProjectModal() {
+      const modal = document.getElementById("editProjectModal");
+      modal.classList.add("hidden");
+      document.body.style.overflow = "auto";
+    }
 
-    <script>
-      function openEditProjectModal(project) {
-        const modal = document.getElementById("editProjectModal");
-        const form = document.getElementById("editProjectForm");
-        // 1. Définir l'action du formulaire (ajustez l'URL selon votre route Adonis)
-        form.action = `/projets/${project.id}?_method=PUT`;
-        // 2. Remplir les champs
-        document.getElementById("editProjectId").value = project.id;
-        document.getElementById("editProjectName").value = project.name || "";
-        document.getElementById("editProjectDescription").value = project.description || "";
-        document.getElementById("editProjectLieu").value = project.lieu || "";
-        // Remplir les Selects
-        document.getElementById("editProjectStatus").value = project.status || "";
-        document.getElementById("editProjectCategory").value = project.category || "";
-        // Remplir les réseaux sociaux
-        document.getElementById("editProjectFacebook").value = project.facebookUrl || "";
-        document.getElementById("editProjectInstagram").value = project.instagramUrl || "";
-        document.getElementById("editProjectYoutube").value = project.youtubeUrl || "";
-        document.getElementById("editProjectTiktok").value = project.tiktokUrl || "";
-        // 3. Afficher le modal
-        modal.classList.remove("hidden");
-        document.body.style.overflow = "hidden"; // Empêche le scroll en arrière-plan
+    document.addEventListener("DOMContentLoaded", () => {
+      const buttons = document.querySelectorAll(".project-btn");
+      const cards = document.querySelectorAll(".project-card");
+      // Si tu n'as pas de cartes, on arrête le script pour éviter les erreurs
+      if (cards.length === 0) return;
+      function filterProjects(targetCategory) {
+        console.log(`--- Filtrage en cours pour : "${targetCategory}" ---`);
+        let foundCount = 0;
+        cards.forEach(card => {
+          // .trim() enlève les espaces au début et à la fin pour éviter les bugs
+          const cardCategory = (card.getAttribute("data-category") || "").trim();
+          if (cardCategory === targetCategory) {
+            card.style.display = "block"; // Affiche la div
+            setTimeout(() => card.style.opacity = "1", 10); // Effet d'apparition
+            foundCount++;
+          } else {
+            card.style.opacity = "0"; // Effet de disparition
+            // On attend la fin de l'animation pour cacher complètement
+            setTimeout(() => card.style.display = "none", 300);
+          }
+        });
+        console.log(`${foundCount} projet(s) trouvé(s) pour cette catégorie.`);
       }
-
-      function closeEditProjectModal() {
-        const modal = document.getElementById("editProjectModal");
-        modal.classList.add("hidden");
-        document.body.style.overflow = "auto";
-      }
-    </script>
-  @endslot
+      // 1. Initialisation : Au chargement de la page, on affiche "Habitats" par défaut
+      filterProjects("Habitats");
+      // 2. Événement au clic sur les boutons de navigation
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const target = btn.getAttribute("data-target").trim();
+          // Gestion des couleurs des boutons (rendre le bouton cliqué orange)
+          buttons.forEach(b => {
+            b.classList.remove("text-[#F7941D]", "border-[#F7941D]", "border-b-2");
+            b.classList.add("text-gray-400");
+          });
+          btn.classList.add("text-[#F7941D]", "border-[#F7941D]", "border-b-2");
+          btn.classList.remove("text-gray-400");
+          // Lancement du filtre
+          filterProjects(target);
+        });
+      });
+    });
+  </script>
+@endslot
 @end
