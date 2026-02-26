@@ -11,8 +11,6 @@ export default class ProjectsController {
 
     const user = auth.user
 
-    console.log(projects.forEach((p) => console.log(p.category)))
-
     return view.render('pages/Projets', { projects, user })
   }
   async store({ request, response, auth, session }: HttpContext) {

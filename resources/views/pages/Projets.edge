@@ -81,7 +81,7 @@
             <!-- Texte descriptif -->
             <div class="flex flex-col justify-center gap-6">
               <h2 class="text-3xl md:text-6xl font-black uppercase italic leading-none">
-                {{ project.name }} <br />                <span class="text-[#F7941D]">Étatiques</span>
+                {{ project.name }} <br />
               </h2>
               <div class="bg-white/5 p-6 md:p-10 rounded-2xl border-l-8 border-[#F7941D]">
                 <p class="text-gray-300 text-lg leading-relaxed italic">
@@ -94,8 +94,15 @@
                   <li>
                     <span class="text-[#F7941D]">●</span>Statut : {{ project.status }}
                   </li>
+                  <li class="text-[#F7941D]">
+                    <span class="text-[#F7941D]">●</span>categorie : {{ project.category }}
+                  </li>
                 </ul>
               </div>
+
+              <p class="leading-relaxed italic text-[#F7941D]">
+                Visitez nos réseaux sociaux pour en savoir plus
+              </p>
               <div class="flex gap-[20px] mt-[20px]">
                 <a
                   href="{{ project.facebookUrl }}"

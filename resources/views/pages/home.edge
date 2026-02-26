@@ -17,6 +17,67 @@
           @!component('components/nav')
         </div>
 
+        <!-- animation welcome -->
+
+        <div id="maze-modal" class="fixed inset-0 z-[10000] flex items-center justify-center">
+          <!-- Fond avec flou artistique sur le site -->
+          <div class="absolute inset-0 bg-[#191256]/60 backdrop-blur-2xl">
+          </div>
+
+          <div
+            class="relative w-[90vw] h-[80vh] max-w-5xl bg-[#191256] border border-white/10 rounded-3xl overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.8)]"
+          >
+
+            <!-- NEIGE / PARTICULES -->
+            <div id="snow-field" class="absolute inset-0 z-10 pointer-events-none">
+            </div>
+
+            <!-- LE LABYRINTHE (4 coins) -->
+            <div class="maze-corner top-0 left-0 border-r border-b border-[#F7941D]/20">
+            </div>
+            <div class="maze-corner top-0 right-0 border-l border-b border-[#F7941D]/20">
+            </div>
+            <div class="maze-corner bottom-0 left-0 border-r border-t border-[#F7941D]/20">
+            </div>
+            <div class="maze-corner bottom-0 right-0 border-l border-t border-[#F7941D]/20">
+            </div>
+
+            <!-- GRILLE DE FOND STYLE ARCHITECTE -->
+            <div
+              class="absolute inset-0 opacity-5"
+              style="background-image: radial-gradient(#F7941D 1px, transparent 1px); background-size: 30px 30px;"
+            >
+            </div>
+
+            <!-- CONTENU CENTRAL -->
+            <div class="absolute inset-0 flex flex-col items-center justify-center z-20">
+              <div id="batic-assembly" class="relative">
+                <h1
+                  class="text-white text-7xl md:text-9xl font-black italic tracking-tighter opacity-0 scale-150 blur-xl transition-all duration-[2000ms] ease-out"
+                >
+                  BATI<span class="text-[#F7941D]">C</span>
+                </h1>
+                <!-- Lignes de visée qui ciblent le logo -->
+                <div
+                  class="target-line h-px w-screen bg-[#F7941D]/40 absolute top-1/2 left-1/2 -translate-x-1/2 scale-x-0"
+                >
+                </div>
+                <div
+                  class="target-line w-px h-screen bg-[#F7941D]/40 absolute top-1/2 left-1/2 -translate-y-1/2 scale-y-0"
+                >
+                </div>
+              </div>
+
+              <p
+                id="maze-status"
+                class="mt-8 font-mono text-[10px] uppercase tracking-[1em] text-[#F7941D] opacity-0"
+              >
+                Convergence des structures...
+              </p>
+            </div>
+          </div>
+        </div>
+
         <!-- Titre Hero - Centré -->
         <div class="relative z-10 h-full flex flex-col justify-center items-center text-white px-6">
           <h1
@@ -187,6 +248,142 @@
         </div>
       </section>
       @!component('components/footer')
+
+      <style>
+        /* Animation des coins du labyrinthe */
+        
+        .maze-corner {
+          position: absolute;
+          width: 0;
+          height: 0;
+          transition: all 3.5s cubic-bezier(0.7, 0, 0.3, 1);
+          background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(247, 148, 29, 0.03) 40px, rgba(247, 148, 29, 0.03) 41px);
+        }
+        
+        .maze-active .maze-corner {
+          width: 55%;
+          height: 55%;
+        }
+        
+        /* Particules de neige */
+        
+        .flake {
+          position: absolute;
+          background: white;
+          border-radius: 50%;
+          opacity: 0;
+          pointer-events: none;
+        }
+        
+        /* Effet d'illumination du logo */
+        
+        .logo-glow {
+          opacity: 1 !important;
+          scale: 1 !important;
+          blur: 0 !important;
+          filter: drop-shadow(0 0 30px rgba(247, 148, 29, 0.4));
+        }
+        
+        /* Lignes de visée */
+        
+        .target-line {
+          transition: transform 2s cubic-bezier(0.19, 1, 0.22, 1);
+          pointer-events: none;
+        }
+        
+        .maze-active .target-line {
+          transform: translate(-50%, -50%) scale(1);
+        }
+        
+        /* Animation de pulsation du labyrinthe */
+        
+        @keyframes maze-pulse {
+          0%, 100% {
+            border-color: rgba(247, 148, 29, 0.2);
+          }
+        
+          50% {
+            border-color: rgba(247, 148, 29, 0.5);
+          }
+        }
+        
+        .maze-corner {
+          animation: maze-pulse 2s infinite;
+        }
+      </style>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          const modal = document.getElementById("maze-modal");
+          const assembly = document.querySelector("#batic-assembly h1");
+          const statusText = document.getElementById("maze-status");
+          const snowField = document.getElementById("snow-field");
+          document.body.style.overflow = "hidden";
+          // 1. Générer la neige dorée/blanche
+          for (let i = 0; i < 120; i++) {
+            const flake = document.createElement("div");
+            flake.className = "flake";
+            const size = Math.random() * 3 + 1 + "px";
+            const isGold = Math.random() > .7;
+            flake.style.width = size;
+            flake.style.height = size;
+            flake.style.backgroundColor = isGold ? "#F7941D" : "#ffffff";
+            flake.style.left = Math.random() * 100 + "%";
+            flake.style.top = -10 + "%";
+            snowField.appendChild(flake);
+            flake.animate([ {
+              top: "-2%",
+              opacity: 0,
+              transform: "translateX(0) rotate(0deg)"
+            }, {
+              opacity: .8,
+              offset: .2
+            }, {
+              top: "100%",
+              opacity: 0,
+              transform: `translateX(${Math.random() * 100 - 50}px) rotate(360deg)`
+            } ], {
+              duration: Math.random() * 4e3 + 3e3,
+              iterations: Infinity,
+              delay: Math.random() * 5e3
+            });
+          }
+          // 2. Lancer la séquence cinématique
+          setTimeout(() => {
+            // Déploiement du labyrinthe
+            modal.classList.add("maze-active");
+            setTimeout(() => {
+              statusText.style.opacity = "1";
+              statusText.style.transition = "opacity 1s";
+            }, 1e3);
+            // 3. Convergence finale (Rencontre au milieu)
+            setTimeout(() => {
+              statusText.textContent = "Structure stabilisée.";
+              assembly.classList.add("logo-glow");
+              // Vibration subtile au moment de l'impact
+              modal.animate([ {
+                transform: "translate(1px, 1px) rotate(0deg)"
+              }, {
+                transform: "translate(-1px, -2px) rotate(-0.1deg)"
+              }, {
+                transform: "translate(0px, 0px) rotate(0deg)"
+              } ], {
+                duration: 200
+              });
+            }, 3e3); // Temps pour que les coins se rejoignent
+          }, 500);
+          // 4. Sortie de l'expérience
+          setTimeout(() => {
+            modal.style.transition = "all 1.5s cubic-bezier(0.7, 0, 0.3, 1)";
+            modal.style.opacity = "0";
+            modal.style.transform = "scale(1.2) translateY(50px)";
+            setTimeout(() => {
+              modal.remove();
+              document.body.style.overflow = "";
+            }, 1500);
+          }, 7e3);
+        });
+      </script>
 
     </main>
   @endslot

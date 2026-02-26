@@ -36,16 +36,20 @@
                 24 Janvier 2024
               </div>
               <h2 class="text-3xl md:text-5xl font-black uppercase italic leading-none mb-6">
-                {{ event.title }}<br />                <span class="text-[#F7941D]">Résidence Horizon</span>
+                {{ event.title }}<br />
               </h2>
               <p class="text-gray-300 leading-relaxed mb-6 italic">
                 {{ event.description }}
               </p>
-              <div class="flex items-center gap-2 text-sm text-gray-400 font-bold uppercase">
+              <div class="flex items-center gap-2 text-sm text-gray-400 font-bold uppercase mb-6">
                 <span class="text-[#F7941D]">📍</span>{{ event.lieu }}
               </div>
 
-              <div class="flex gap-[20px] mt-[20px]">
+              <p class=" leading-relaxed italic text-[#F7941D]">
+                Visitez nos réseaux sociaux pour en savoir plus
+              </p>
+
+              <div class="flex gap-[20px] ">
                 <a
                   href="{{ event.facebookUrl }}"
                   target="_blank"
